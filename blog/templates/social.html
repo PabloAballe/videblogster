@@ -1,0 +1,13 @@
+{% load social_share %}
+{%load static%}
+
+<div class="social">
+  <img src="{%static 'images/iconos/face.png'%}" alt="Facebook">
+  {% post_to_facebook request.get_full_path "Post en Facebook!" %}
+  <img src="{%static 'images/iconos/tw.png'%}" alt="Twitter">
+  {% post_to_twitter "Mira este post de Blogster: {{post_details.titulo| title}}" request.get_full_path "Post en Twitter" %}
+  <img src="{%static 'images/iconos/gmail.png'%}" alt="Gmail">
+  {% send_email object.title "Mira este post de Blogster: {{post_details.titulo| title}}. Check it out!" request.get_full_path "Compartir via email" %}
+  <img src="{%static 'images/iconos/what.png'%}" alt="Whatsapp">
+  {% post_to_whatsapp request.get_full_path "Compartir via WhatsApp" %}
+</div>

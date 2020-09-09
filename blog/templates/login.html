@@ -1,0 +1,20 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block title%}Login{%endblock%}
+{%block contenido%}
+<div class="login">
+  <img src="{% static 'images/icono.png'%}" alt="Blogster">
+  <h2>Iniciar sesión</h2>
+
+  <form method="POST">
+    {{ form_auth.as_p }}
+    {% csrf_token %}
+    <button type="submit" class="btn-dark">Login</button>
+  </form>
+
+  <hr />
+  <a href="/register">Registrar usuario</a>
+
+</div>
+
+{%endblock %}

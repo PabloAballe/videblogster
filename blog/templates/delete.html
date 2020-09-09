@@ -1,0 +1,15 @@
+{%extends 'base.html'%}
+{%block title%}Borrar post{%endblock%}
+
+{%block contenido%}
+<div class="delete">
+  <h4>¿Estas seguro de que deseas borrar el post seleccionado?</h4>
+  <a href="{% url 'delete_post' pk=post.id_post %}">
+    <button type="button" class="btn btn-danger">Borrar</button>
+  </a>
+  <a href="{% url 'home'%}">
+    <button type="button" class="btn btn-success">Atras</button>
+  </a>
+</div>
+
+{%endblock%}
