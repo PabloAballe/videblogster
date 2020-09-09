@@ -261,7 +261,7 @@ form label {
 
   .articulos {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto;
     grid-column-gap: 2%;
   }
 

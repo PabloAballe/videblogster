@@ -42,7 +42,6 @@ def no_existe(request):
 
 
 def home(request):
-    # porfile=Porfile.objects.get(usuario=request.user)
     date=datetime.date.today().day
     post=Post.objects.all().order_by('-id_post')[:10]
     primer_post=Post.objects.all().order_by('-id_post').first()
@@ -176,7 +175,7 @@ def guardar_post(request, pk):
 
 def post_guardados(request):
     user=request.user
-    post_guardados=PostGuardado.objects.all().filter(usuario=user)
+    post_guardados=PostGuardado.objects.all().filter(usuario=user).order_by('-id_post_guardado')
     return render(request, 'post_guardados.html',{'post': post_guardados})
 
 def guardado_quit(request, pk):
@@ -348,11 +347,5 @@ def view_porfile(request ,pk):
 
 
     posts=Post.objects.all().filter(autor=user).order_by('-id_post')
-    return render(request, 'view_porfile.html',{'user': user, 'posts': posts,})
-
-def seguir(request, pk):
-    pass
-
-
-def dejar_de_seguir(request, pk):
-    pass
+    post_count=posts.count()
+    return render(request, 'view_porfile.html',{'user': user, 'posts': posts,'post_count': post_count})
