@@ -3,6 +3,8 @@
 {%block title%}Home{%endblock%}
 
 {%block contenido%}
+{% include 'scroller.html'%}
+{% include 'main.html'%}
 {%include 'slide.html'%}
 
 <h4 class="suma">Total visitas este mes: {{total.sum}}</h4>
@@ -10,7 +12,7 @@
   {%for post in post_all%}
   {%ifequal post.publicado True%}
   <a href="{% url 'post_details' pk=post.id_post %}" class="noticias">
-    <div class="card">
+    <div class="card shadow p-3 mb-5 bg-white rounded">
       <img class="card-img-top" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}">
       <div class="card-body" href="{% url 'post_details' pk=post.id_post %}">
         <h5 class="card-title"> {{post.titulo |title}}</h5>

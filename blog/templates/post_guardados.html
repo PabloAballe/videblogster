@@ -11,7 +11,7 @@ Post Guardados
 <div class="articulos">
   {%for post_guardados in post%}
   <a href="{% url 'post_details' pk=post_guardados.post.id_post %}" class="noticias">
-    <div class="card">
+    <div class="card shadow p-3 mb-5 bg-white rounded">
       <img class="card-img-top" src="{{post_guardados.post.imagen_principal.url}}" alt="{{post_guardados.post.titulo}}">
       <div class="card-body" href="{% url 'post_details' pk=post_guardados.post.id_post %}">
         <h5 class="card-title"> {{post_guardados.post.titulo |title}}</h5>

@@ -36,7 +36,7 @@ def no_existe(request):
     else:
         form = SheachForm()
 
-    categoria=Post.objects.all().order_by('-visitas')[:10]
+    categoria=Post.objects.all().order_by('-visitas')[:5]
     context={ 'form': form, 'categoria': categoria}
     return render(request, "no_existe.html", context)
 
@@ -45,9 +45,10 @@ def home(request):
     date=datetime.date.today().day
     post=Post.objects.all().order_by('-id_post')[:10]
     primer_post=Post.objects.all().order_by('-id_post').first()
-    post_all=Post.objects.all().order_by('-id_post')[:100]
+    post_all=Post.objects.all().order_by('-id_post')[:50]
     total=Post.objects.all().aggregate(sum=Sum('visitas'))
-    categoria=Post.objects.all().order_by('-visitas')[:10]
+    categoria=Post.objects.all().order_by('-visitas')[:5]
+   
 
 #set 0 because begueans the mont
     if date==1:
@@ -81,7 +82,7 @@ def porfile(request):
     porfile=get_object_or_404(Porfile, pk=user.porfile.pk)
     posts=Post.objects.all().filter(autor=user.porfile).order_by('-id_post')
     post_count=posts.count()
-    categoria=Post.objects.all().order_by('-visitas')[:10]
+    categoria=Post.objects.all().order_by('-visitas')[:5]
     context={ 'categoria': categoria, 'porfile': porfile, 'user': user, 'posts': posts, 'post_count': post_count}
     return render(request, 'porfile.html', context)
 
@@ -100,7 +101,7 @@ def top(request):
     else:
         form = SheachForm()
 
-    categoria=Post.objects.all().order_by('-visitas')[:10]
+    categoria=Post.objects.all().order_by('-visitas')[:5]
     post=Post.objects.all().order_by('-visitas')[:100]
 
 
@@ -158,7 +159,7 @@ def post_details(request, pk):
 
 
 
-    categoria=Post.objects.all().order_by('-visitas')[:10]
+    categoria=Post.objects.all().order_by('-visitas')[:5]
     post_details.visitas=post_details.visitas+1
     post_details.save()
     porfile=get_object_or_404(Porfile, usuario=post_details.autor.usuario  )
@@ -185,7 +186,7 @@ def guardado_quit(request, pk):
 
 
 def categoria(request, slug):
-    categoria=Post.objects.all().order_by('-visitas')[:10]
+    categoria=Post.objects.all().order_by('-visitas')[:5]
     cat=Post.objects.all().order_by('-visitas').filter(categoria=slug)[:50]
 
 
@@ -195,7 +196,7 @@ def categoria(request, slug):
 
 
 def register(request):
-    categoria=Post.objects.all().order_by('-visitas')[:10]
+    categoria=Post.objects.all().order_by('-visitas')[:5]
     # Creamos el formulario de autenticación vacío
     form_reg = UserCreationForm()
     x = form_reg.fields['username']
@@ -227,7 +228,7 @@ def register(request):
 
 
 def login(request):
-    categoria=Post.objects.all().order_by('-visitas')[:10]
+    categoria=Post.objects.all().order_by('-visitas')[:5]
     # Creamos el formulario de autenticación vacío
     form_auth = AuthenticationForm()
     if request.method == "POST":
@@ -265,7 +266,7 @@ def post_new(request):
             titulo=form.cleaned_data['titulo']
             descripcion=form.cleaned_data['descripcion']
             articulo=form.cleaned_data['articulo']
-            categoria=form.cleaned_data['categoria']
+            categoria=form.cleaned_data['categoria'].strip()
             autor = porfile
             imagen_principal=form.cleaned_data['imagen_principal']
             articulo= Post.objects.create(titulo=titulo,    descripcion=descripcion ,articulo=articulo,categoria=categoria, autor=autor, imagen_principal=imagen_principal  )
@@ -303,10 +304,10 @@ def post_edit(request, pk):
             titulo=form.cleaned_data['titulo']
             descripcion=form.cleaned_data['descripcion']
             articulo=form.cleaned_data['articulo']
-            categoria=form.cleaned_data['categoria']
+            categoria=form.cleaned_data['categoria'].strip()
             autor = porfile
             imagen_principal=form.cleaned_data['imagen_principal']
-            articulo= Post.objects.create(titulo=titulo,    descripcion=descripcion ,articulo=articulo,categoria=categoria, autor=autor, imagen_principal=imagen_principal  )
+            # articulo= Post.objects.create(titulo=titulo,    descripcion=descripcion ,articulo=articulo,categoria=categoria, autor=autor, imagen_principal=imagen_principal  )
             post.save()
             return redirect('post_details', pk=post.pk)
     else:

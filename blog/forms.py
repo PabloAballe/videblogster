@@ -36,4 +36,4 @@ class UserForm(forms.ModelForm):
 class PorfileForm(forms.ModelForm):
     class Meta:
         model = Porfile
-        fields = ('imagen_perfil', 'bio', 'website', 'email')
+        fields = ('imagen_perfil', 'bio', 'website')

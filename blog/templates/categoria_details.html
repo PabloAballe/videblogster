@@ -11,7 +11,7 @@
   {%for post in cat%}
   {%ifequal post.publicado True%}
   <a href="{% url 'post_details' pk=post.id_post %}" class="noticias">
-    <div class="card">
+    <div class="card shadow p-3 mb-5 bg-white rounded">
       <img class="card-img-top" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}">
       <div class="card-body" href="{% url 'post_details' pk=post.id_post %}">
         <h5 class="card-title"> {{post.titulo |title}}</h5>

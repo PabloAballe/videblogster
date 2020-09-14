@@ -5,10 +5,10 @@ from .models import Comentario
 from .models import PostGuardado
 from django_summernote.admin import SummernoteModelAdmin
 
-class PostAdmin(SummernoteModelAdmin):
+class PostAdmin1(SummernoteModelAdmin):
     summernote_fields = ('articulo',)
 
-class PostAdmin1(admin.ModelAdmin):
+class PostAdmin(admin.ModelAdmin):
     list_display= ['titulo', 'categoria', 'created_at']
     search_fields = ['titulo', 'articulo', 'categoria', 'created_at']
     list_filter =  ['titulo',  'categoria', 'created_at']

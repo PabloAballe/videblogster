@@ -1,5 +1,15 @@
 from django.urls import path, include
 from . import views
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import PostSitemap
+from django.views.generic.base import TemplateView
+from .models import Post
+from django.conf.urls import url
+
+sitemaps = {
+    'posts': PostSitemap,
+}
+
 
 
 
@@ -26,4 +36,7 @@ urlpatterns = [
     path('delete_post/<int:pk>/', views.delete_post, name='delete_post'),
     path('post/edit/<int:pk>/', views.post_edit, name='post_edit'),
     path('comment/delete/<int:pk>/', views.delete_com, name='delete_com'),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('robots.txt',TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),),
+  
 ]

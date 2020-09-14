@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 
+.cover{
+text-align: !important center;
+}
+.saber{
+float:none;
+}
+
+
 html {
   padding: 0px;
   margin: 0px;
@@ -57,7 +65,7 @@ a, a:hover, a:visited {
 }
 
 .articulo {
-  width: 80%;
+  width: 95%;
   text-align: justify;
   margin: 2% 10% 2% 10%;
 }
@@ -75,14 +83,14 @@ svg {
   width: 20px;
 }
 
-.articulo img {
-  width: 1000px;
-  margin: 2%;
+.articulo img,.details p img ,.details p iframe{
+  width: 50% !important;
+  margin: 2% !important;
 }
 
 .articulo .perfil, .comentario img, .noticias .perfil, .perfil_user {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   border-radius: 150px;
   float: left;
   margin-top: -1%;
@@ -131,12 +139,11 @@ svg {
 .add button, .guardar button ,.seguir button{
   position: absolute;
   width: 70%;
-  height: 50px;
   margin-top: -3%;
   margin-left: 10%;
 }
 .guardar button, .seguir button{
-  margin: 10px 10px 5px 40px;
+  margin: 10px 10px 5px 5px;
 }
 
 .seguidores{
@@ -283,8 +290,8 @@ form label {
     margin-left: 0px
   }
 
-  .articulo img {
-    width: 400px;
-    margin: 2%;
+  .articulo img ,.details p  img, .details p  iframe{
+    width: 50% !important;
+    margin: 2% !important;
   }
 }

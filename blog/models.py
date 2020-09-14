@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.urls import reverse
+from django.utils.text import slugify
 
 
 class Porfile(models.Model):
@@ -26,20 +28,42 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 post_save.connect(create_user_profile, sender=User)
 
+CHOICES = (
+    ('hogar','HOGAR'),
+    ('deportes', 'DEPORTES'),
+    ('tecnologia','TECNOLOGIA'),
+    ('ciencia','CIENCIA'),
+    ('salud','SALUD'),
+    ('estilodevida','ESTILO_DE_VIDA'),
+    ('mundo', 'MUNDO'),
+    ('utilidades','UTILIDADES'),
+    ('cocina','COCINA'),
+    ('tutoriales','TUTORIALES'),
+    ('bloguer','BLOGUER'),
+    ('cultura','CULTURA'),
+    ('negocios','NEGOCIOS'),
+    ('politica','POLITICA'),
+    ('opinion','OPINION'),
+    ('fashion', 'FASHION'),
+    ('viajes','VIAJES'),
+
+)
+
 
 class Post(models.Model):
     id_post=models.AutoField(primary_key=True, auto_created = True)
-    titulo=models.CharField(max_length=50,help_text="Título del artículo")
+    titulo=models.CharField(max_length=100,help_text="Título del artículo")
     descripcion=models.CharField(max_length=300,help_text="Descripción corta del artículo", default="", null=True, blank=True)
     articulo=models.TextField(help_text="Escriba aquí su artículo")
     imagen_principal=models.ImageField(upload_to='posts/images')
     autor=models.ForeignKey(Porfile, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     publicado=models.BooleanField(default=False)
-    categoria=models.CharField(max_length=50,help_text="Categoria del artículo")
+    categoria=models.CharField(max_length=20,help_text="Categoria del artículo", default="bloguer", choices=CHOICES)
     visitas=models.IntegerField(default=0)
 
 
+            
 
     class Meta:
         verbose_name_plural = "Posts"
@@ -47,6 +71,9 @@ class Post(models.Model):
     def __str__(self):
         return self.titulo
 
+    def get_absolute_url(self):
+        return reverse('post_details', args=[str(self.id_post)])    
+    
 
 
 class Comentario(models.Model):

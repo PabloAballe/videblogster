@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+html {
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+  font-family: 'Poppins', sans-serif !important;
+}
+.post_guardados h1{
+  text-align: center;
+  margin: 5%;
+}
+.social img {
+  width: 30px !important;
+  height: 30px;
+}
+.social{
+  display: grid;
+  grid-template-columns: auto auto;
+  width: 30%;
+}
+
+button a, button a:hover, button a:visited {
+  text-decoration: none;
+  color: white;
+}
+
+a, a:hover, a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+* {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+
+#carouselExampleCaptions img {
+  height: 450px;
+}
+
+#carouselExampleCaptions {
+  width: 50%;
+  margin: 2% 20% 5% 25%;
+}
+
+.card {
+  width: 80%;
+  margin-left: 50px;
+  margin-top: 1%;
+  margin-bottom: 10%;
+}
+
+.btn {
+  float: right;
+  margin-top: 5%;
+}
+
+.articulo {
+  width: 80%;
+  text-align: justify;
+  margin: 2% 10% 2% 10%;
+}
+
+.descripcion {
+  color: #757575;
+}
+
+.autor {
+  color: #499852;
+}
+
+svg {
+  height: 20px;
+  width: 20px;
+}
+
+.articulo img {
+  width: 50%;
+  margin: 2%;
+}
+
+.articulo .perfil, .comentario img, .noticias .perfil, .perfil_user {
+  width: 40px;
+  height: 40px;
+  border-radius: 150px;
+  float: left;
+  margin-top: -1%;
+  border: solid 1px #09876F;
+  padding: 0.5%;
+}
+
+.delete {
+  text-align: center;
+  margin: 10%;
+}
+
+.privacy {
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 2%;
+  text-align: justify;
+}
+
+.delete button {
+  margin: 2%;
+}
+
+.datos_usuario {
+  margin-left: 15%;
+}
+
+.perfil_user {
+  width: 80px;
+  height: 80px;
+}
+
+.comentario img, .noticias .perfil {
+  margin-right: 2%;
+}
+
+.porfile {
+  margin: 5% 5% 5% 5%;
+}
+
+.noticias .perfil {
+  width: 40px;
+  height: 40px;
+}
+
+.add button, .guardar button ,.seguir button{
+  position: absolute;
+  width: 70%;
+  height: 50px;
+  margin-top: -3%;
+  margin-left: 10%;
+}
+.guardar button, .seguir button{
+  margin: 10px 10px 5px 40px;
+}
+
+.seguidores{
+  display: grid;
+grid-template-columns: auto auto;
+margin: 10px 0px 10px 10px ;
+
+}
+
+
+.nk-cookie-banner {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 999;
+  border-radius: 0px;
+  display: none;
+  background-color: white;
+}
+
+.comentario {
+  margin-left: 10%;
+  width: 80%;
+}
+
+.comentario .formulario textarea {
+  width: 100%;
+  height: 50px;
+}
+
+form label {
+  display: none;
+}
+
+.no {
+  width: 1000px;
+}
+
+.not {
+  text-align: center;
+  padding-top: 5%;
+}
+
+.not img {
+  margin-top: -10%;
+}
+
+.login {
+  text-align: center;
+  margin-top: 5%;
+}
+
+.registro {
+  margin-left: 40%;
+  margin-top: 1%;
+}
+
+.card button {
+  margin: 0.5%;
+  margin-top: 10%;
+}
+
+.articulos {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto;
+}
+
+.suma {
+  margin-left: 5%;
+  margin: 5%;
+}
+
+.search {
+  height: 10px;
+  width: 10px;
+}
+
+.nuevo_post {
+  text-align: justify;
+  margin-left: 5%;
+  margin: 5%;
+}
+
+.nuevo_post input, .nuevo_post textarea {
+  width: 80%;
+}
+
+.nuevo_post img {
+  margin-left: 40%;
+  margin-bottom: 5%;
+}
+
+.save {
+  margin-top: -2%;
+  margin-right: 10%;
+  margin-bottom: 10%;
+}
+
+.porfile hr {
+  width: 300%;
+}
+
+@media screen and (max-width: 700px) {
+  .social{
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 70%;
+  }
+  .datos_usuario {
+    margin-left: 20%;
+  }
+
+  .nuevo_post {
+    margin-left: 10%;
+  }
+
+  .registro {
+    margin-left: 20%;
+    margin-top: 5%;
+  }
+
+  .articulos {
+    display: grid;
+    grid-template-columns: auto;
+    grid-column-gap: 2%;
+  }
+
+  #carouselExampleCaptions img {
+    height: 300px;
+  }
+
+  #carouselExampleCaptions {
+    width: 100%;
+    margin: 2% 0% 5% 0%;
+  }
+
+  .no {
+    width: 500px;
+  }
+
+  .card {
+    width: 100%;
+    margin-left: 0px
+  }
+
+  .articulo img {
+    width: 100%;
+    margin: 2%;
+  }
+}

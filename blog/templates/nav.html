@@ -2,7 +2,7 @@
 
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow p-3 mb-5 bg-white rounded">
   <!-- Cookie Banner -->
   <div class="nk-cookie-banner alert alert-dark text-center mb-0" role="alert">
   🍪 Usamos cookies para mejorar la experiencia en nuestro sitio <br>
@@ -37,14 +37,20 @@
         <a class="nav-link" href="{%url 'top'%}" id="porfile">Top Blogsters</a>
       </li>
 
+   
+
       {% if user.is_authenticated %}
 
+      <li class="nav-item {% if request.resolver_match.url_name == "post_new" %}active{% endif %}">
+        <a class="nav-link" href="{%url 'post_new'%}">
+Nuevo post </a>
+      </li>
 
       <li class="nav-item dropdown droper {% if request.resolver_match.url_name == "porfile" %}active{% endif %}"" >
 
 
     <a class=" nav-link dropdown-toggle "  id="opciones" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-        Bienvenido <b>{{request.user.username}} </b>
+      <img class="perfil rounded-circle" src="{{request.user.porfile.imagen_perfil.url}}" alt="{{request.user.username}}" width="30" height="30" >   <b style="margin-left: 2px;">{{request.user.username| title}} </b>
 
 
       </a>
@@ -97,7 +103,7 @@
 
             Política de privacidad</a>
 
-          <a class="nav-link" href="{%url 'logout'%}">
+          <a class="dropdown-item" href="{%url 'logout'%}">
 
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-box-arrow-in-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
@@ -118,8 +124,9 @@
     </ul>
 
     {% if request.resolver_match.url_name == "home" %}
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <li class="nav-link dropdown droper ">
+      
+    <a class=" nav-link dropdown-toggle "  id="opciones" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
         Trending este mes
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
