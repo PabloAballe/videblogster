@@ -16,6 +16,10 @@ sitemaps = {
 urlpatterns = [
     path('', views.home, name='home'),
     path('top', views.top, name='top'),
+    path('siguiendo/<int:pk>/', views.siguiendo, name='siguiendo'),
+    path('seguidores/<int:pk>/', views.seguidores, name='seguidores'),
+    path('seguir/<int:pk>/', views.seguir, name='seguir'),
+    path('dejar_seguir/<int:pk>/', views.dejar_seguir, name='dejar_seguir'),
     path('privacy', views.privacy, name='privacy'),
     path('view_porfile/<int:pk>/', views.view_porfile, name='view_porfile'),
     path('guardar_post/<int:pk>/', views.guardar_post, name='guardar_post'),
@@ -38,5 +42,5 @@ urlpatterns = [
     path('comment/delete/<int:pk>/', views.delete_com, name='delete_com'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('robots.txt',TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),),
-  
+
 ]

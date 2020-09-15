@@ -11,6 +11,7 @@ class Porfile(models.Model):
     id_porfile=models.AutoField(primary_key=True, auto_created = True)
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
     imagen_perfil=models.ImageField(upload_to='porfile/images', default="default/porfile.png")
+    cover=models.ImageField(upload_to='porfile/images/cover', default="default/cover.png")
     bio=models.CharField(max_length=300,help_text="Escriba aqui su biografia", null=True, blank=True)
     vistas=models.IntegerField(default=0)
     website=models.CharField(max_length=100,help_text="Ingresa tu sitio web", default="", null=True, blank=True)
@@ -44,7 +45,7 @@ CHOICES = (
     ('negocios','NEGOCIOS'),
     ('politica','POLITICA'),
     ('opinion','OPINION'),
-    ('fashion', 'FASHION'),
+    ('moda', 'MODA'),
     ('viajes','VIAJES'),
 
 )
@@ -63,7 +64,7 @@ class Post(models.Model):
     visitas=models.IntegerField(default=0)
 
 
-            
+
 
     class Meta:
         verbose_name_plural = "Posts"
@@ -72,8 +73,8 @@ class Post(models.Model):
         return self.titulo
 
     def get_absolute_url(self):
-        return reverse('post_details', args=[str(self.id_post)])    
-    
+        return reverse('post_details', args=[str(self.id_post)])
+
 
 
 class Comentario(models.Model):

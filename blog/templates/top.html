@@ -8,7 +8,7 @@
     <div class="card shadow p-3 mb-5 bg-white rounded">
       <img class="card-img-top" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}">
       <div class="card-body" href="{% url 'post_details' pk=post.id_post %}">
-<h3 style="color:#218838;">Top: {{forloop.counter}}</h3>
+        <h3 style="color:#218838;">Top: {{forloop.counter}}</h3>
         <h5 class="card-title"> {{post.titulo |title}}</h5>
         <p class="card-text">{{post.descripcion}}</p>
         <p>
@@ -24,8 +24,9 @@
             <path fill-rule="evenodd"
               d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-5.146-5.146a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
           </svg> {{post.created_at | date}}</p>
+        <p class="card-text">{{post.autor.usuario| title}}</p>
         <img class="perfil" src="{{post.autor.imagen_perfil.url}}" alt="{{post.autor}}">
-        <p class="card-text">{{post.autor}}</p>
+
 
         <button type="button" class="btn btn-dark"><a href="{% url 'post_details' pk=post.id_post %}">
 

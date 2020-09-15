@@ -1,21 +1,12 @@
-{%extends 'base.html'%}
-{%block title%}
-Post Guardados
- {%endblock%}
-
- {%block contenido%}
-<div class="post_guardados">
-
-
-<h1>Tus post guardados</h1>
 <div class="articulos">
-  {%for post_guardados in post%}
-  <a href="{% url 'post_details' pk=post_guardados.post.id_post %}" class="noticias">
+  {%for post in post_all%}
+  {%ifequal post.publicado True%}
+  <a href="{% url 'post_details' pk=post.id_post %}" class="noticias">
     <div class="card shadow p-3 mb-5 bg-white rounded">
-      <img class="card-img-top" src="{{post_guardados.post.imagen_principal.url}}" alt="{{post_guardados.post.titulo}}">
-      <div class="card-body" href="{% url 'post_details' pk=post_guardados.post.id_post %}">
-        <h5 class="card-title"> {{post_guardados.post.titulo |title}}</h5>
-        <p class="card-text">{{post_guardados.post.descripcion | title}}</p>
+      <img class="card-img-top" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}">
+      <div class="card-body" href="{% url 'post_details' pk=post.id_post %}">
+        <h5 class="card-title"> {{post.titulo |title}}</h5>
+        <p class="card-text">{{post.descripcion | title}}</p>
         <p>
 
           <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bookmark-star-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
@@ -24,11 +15,11 @@ Post Guardados
           </svg>
 
 
-          {{post_guardados.post.categoria| title}}</p>
+          {{post.categoria| title}}</p>
         <p class="card-text"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar-check-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
               d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-5.146-5.146a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
-          </svg> {{post_guardados.post.created_at | date}}</p>
+          </svg> {{post.created_at | date}}</p>
           <p class="card-text">
 
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
@@ -36,11 +27,11 @@ Post Guardados
             </svg>
 
 
-            {{post_guardados.post.autor.usuario | title}}</p>
-        <img class="perfil" src="{{post_guardados.post.autor.imagen_perfil.url}}" alt="{{post_guardados.post.autor}}">
+            {{post.autor.usuario | title}}</p>
 
+        <img class="perfil" src="{{post.autor.imagen_perfil.url}}" alt="{{post.autor}}">
 
-        <button type="button" class="btn btn-dark"><a href="{% url 'post_details' pk=post_guardados.post.id_post %}">
+        <button type="button" class="btn btn-dark"><a href="{% url 'post_details' pk=post.id_post %}">
 
 
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -54,9 +45,6 @@ Post Guardados
     </div>
   </a>
 
-
+  {%endifequal%}
   {%endfor%}
 </div>
-</div>
-
- {%endblock%}

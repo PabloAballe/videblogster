@@ -19,7 +19,9 @@ from .forms import PorfileForm
 from django.contrib.auth.models import User
 from .forms import UserForm
 from annoying.functions import get_object_or_None
-
+from django.contrib.auth.models import User
+from friendship.models import Friend, Follow, Block
+from friendship.models import FriendshipRequest
 
 def no_existe(request):
     if request.method == "POST":
@@ -48,7 +50,7 @@ def home(request):
     post_all=Post.objects.all().order_by('-id_post')[:50]
     total=Post.objects.all().aggregate(sum=Sum('visitas'))
     categoria=Post.objects.all().order_by('-visitas')[:5]
-   
+
 
 #set 0 because begueans the mont
     if date==1:
@@ -79,11 +81,15 @@ def home(request):
 @login_required
 def porfile(request):
     user=request.user
+    seguidores=Follow.objects.all().filter(follower_id=user.pk)
+    seguidos=Follow.objects.all().filter(followee_id=user.pk)
+    num_seguidores=seguidores.count()
+    num_seguidos=seguidos.count()
     porfile=get_object_or_404(Porfile, pk=user.porfile.pk)
     posts=Post.objects.all().filter(autor=user.porfile).order_by('-id_post')
     post_count=posts.count()
     categoria=Post.objects.all().order_by('-visitas')[:5]
-    context={ 'categoria': categoria, 'porfile': porfile, 'user': user, 'posts': posts, 'post_count': post_count}
+    context={ 'categoria': categoria, 'porfile': porfile, 'user': user, 'posts': posts, 'post_count': post_count, 'num_seguidores': num_seguidores, 'num_seguidos': num_seguidos}
     return render(request, 'porfile.html', context)
 
 def top(request):
@@ -191,7 +197,7 @@ def categoria(request, slug):
 
 
 
-    context={'categoria': categoria, 'cat': cat}
+    context={'categoria': categoria, 'post_all': cat}
     return render(request, 'categoria_details.html', context)
 
 
@@ -343,10 +349,32 @@ def update_profile(request):
     })
 
 def view_porfile(request ,pk):
+    sigue=Follow.objects.all().filter(follower=request.user).exists()
+    esta_siguiendo=False
+    if sigue==True:
+        esta_siguiendo=True
     user=get_object_or_404(Porfile, id_porfile=pk)
-
-
-
     posts=Post.objects.all().filter(autor=user).order_by('-id_post')
     post_count=posts.count()
-    return render(request, 'view_porfile.html',{'user': user, 'posts': posts,'post_count': post_count})
+    return render(request, 'view_porfile.html',{'user': user, 'posts': posts,'post_count': post_count, 'esta_siguiendo': esta_siguiendo})
+
+
+def seguir(request, pk):
+    other_user = get_object_or_404(User,pk=pk)
+    Follow.objects.add_follower(request.user, other_user)
+    return redirect('porfile')
+
+def dejar_seguir(request, pk):
+    other_user = get_object_or_404(User,pk=pk)
+    Follow.objects.remove_follower(request.user, other_user)
+    return redirect('porfile')
+
+def siguiendo(request, pk):
+    user=request.user
+    seguidos=Follow.objects.all().filter(follower_id=user.pk)
+    return render(request, 'siguiendo.html',{'users': seguidos})
+
+def seguidores(request, pk):
+    user=request.user
+    seguidores=Follow.objects.all().filter(followee_id=user.pk)
+    return render (request, 'seguidores.html', {'users': seguidores})

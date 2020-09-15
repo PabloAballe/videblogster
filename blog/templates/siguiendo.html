@@ -1,0 +1,24 @@
+{%extends 'base.html'%}
+{%block title%}Siguiendo{%endblock%}
+{%block contenido%}
+<div class="siguiendo ">
+  <h2>Siguiendo a</h2>
+  <hr>
+  {%for user in users%}
+  <a href="{%url 'view_porfile' pk=user.followee.porfile.pk%}">
+    <div class="users ">
+      <img class="perfil_user" src="{{user.followee.porfile.imagen_perfil.url}}" alt="{{user.followee.username}}" style="margin-top: -8%; margin-right: 20%;">
+      <div class="datos_usuario ">
+
+        <h2>{{user.followee.first_name | title}} {{user.followee.last_name| title}}</h2>
+        <p><strong>{{user.followee.username | title}}</strong></p>
+        <br>
+      </div>
+      <hr>
+    </div>
+  </a>
+  {%endfor%}
+</div>
+
+
+{%endblock%}

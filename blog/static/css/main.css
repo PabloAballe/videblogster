@@ -1,12 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 
-.cover{
-text-align: !important center;
-}
-.saber{
-float:none;
+.cover {
+  text-align:  !important center;
 }
 
+.saber {
+  float: none;
+}
+.siguiendo{
+  width: 80%;
+  margin-left: 10%;
+}
+.siguiendo .perfil_user{
+  margin-left: 20%;
+}
 
 html {
   padding: 0px;
@@ -14,15 +21,18 @@ html {
   list-style: none;
   font-family: 'Poppins', sans-serif !important;
 }
-.post_guardados h1{
+
+.post_guardados h1 {
   text-align: center;
   margin: 5%;
 }
+
 .social img {
   width: 30px !important;
   height: 30px;
 }
-.social{
+
+.social {
   display: grid;
   grid-template-columns: auto auto;
   width: 30%;
@@ -41,7 +51,6 @@ a, a:hover, a:visited {
 * {
   font-family: 'Poppins', sans-serif !important;
 }
-
 
 #carouselExampleCaptions img {
   height: 450px;
@@ -77,25 +86,37 @@ a, a:hover, a:visited {
 .autor {
   color: #499852;
 }
-
+.cover{
+  width: 100%;
+  height: 200px;
+}
 svg {
   height: 20px;
   width: 20px;
 }
 
-.articulo img,.details p img ,.details p iframe{
+.articulo .principal, .details p img, .details p iframe {
   width: 50% !important;
   margin: 2% !important;
 }
 
+
 .articulo .perfil, .comentario img, .noticias .perfil, .perfil_user {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 150px;
   float: left;
   margin-top: -1%;
+  margin: 1%;
   border: solid 1px #09876F;
   padding: 0.5%;
+
+}
+.perfil_user{
+  position: absolute;
+  top: 320px;
+  left: 100px;
+  background-color: white;
 }
 
 .delete {
@@ -116,14 +137,11 @@ svg {
 
 .datos_usuario {
   margin-left: 15%;
+  margin-top: 2%;
 }
 
-.perfil_user {
-  width: 80px;
-  height: 80px;
-}
 
-.comentario img, .noticias .perfil {
+.comentario img,  {
   margin-right: 2%;
 }
 
@@ -136,21 +154,25 @@ svg {
   height: 40px;
 }
 
-.add button, .guardar button ,.seguir button{
+.add button, .guardar button, .seguir button {
   position: absolute;
-  width: 70%;
-  margin-top: -3%;
-  margin-left: 10%;
+  width: 50%;
+  margin-top: 0%;
+  margin-left: 20%;
 }
-.guardar button, .seguir button{
+
+.guardar button, .seguir button {
   margin: 10px 10px 5px 5px;
 }
 
-.seguidores{
+.seguidores {
   display: grid;
-grid-template-columns: auto auto;
-margin: 10px 0px 10px 10px ;
-
+  grid-template-columns: 150px 150px;
+  margin: 2% 10% 0% -3%;
+  width: 50%;
+}
+.siguiendo{
+  text-align: center;
 }
 
 
@@ -244,17 +266,29 @@ form label {
 }
 
 .porfile hr {
-  width: 300%;
+  width: 100%;
 }
 
 @media screen and (max-width: 700px) {
-  .social{
+
+  .seguidores {
+    margin: 2% 10% 2% 0%;
+  }
+  .perfil_user{
+
+    left: 50px;
+
+  }
+  .social {
     display: grid;
     grid-template-columns: auto auto;
     width: 70%;
   }
+
   .datos_usuario {
-    margin-left: 20%;
+    margin-left: 0%;
+      margin-top: 20%;
+
   }
 
   .nuevo_post {
@@ -290,8 +324,12 @@ form label {
     margin-left: 0px
   }
 
-  .articulo img ,.details p  img, .details p  iframe{
+  .articulo .principal, .details p img, .details p iframe {
     width: 50% !important;
     margin: 2% !important;
+  }
+  .siguiendo .perfil_user{
+    margin-left: -5%;
+    margin-top: -500%;
   }
 }

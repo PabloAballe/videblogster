@@ -4,13 +4,17 @@
 {% block contenido %}
 <div class="nuevo_post shadow p-3 mb-5 bg-white rounded">
 
-<img src="{%static 'images/icono.png'%}" alt="Blogster">
+  <img src="{%static 'images/icono.png'%}" alt="Blogster">
 
-<form method="POST" class="post-form" enctype="multipart/form-data">
+  <form method="POST" class="post-form" enctype="multipart/form-data">
 
-  {% csrf_token %}
-  {{ form.as_p }}
+    {% csrf_token %}
+    {{ form.as_p }}
     <button type="submit" class="save btn btn-success">Guardar</button>
-</form>
+
+  </form>
+  <a href="{% url 'porfile'%}" class="exit">
+    <button type="" class="btn btn-danger" style="margin: 5%;margin-top: -2%;">Cancelar </button>
+  </a>
 </div>
 {% endblock %}

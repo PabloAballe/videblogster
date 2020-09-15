@@ -8,6 +8,7 @@ View porfile
 <div class="porfile shadow p-3 mb-5 bg-white rounded">
 
 
+    <img class="cover" src="{{user.cover.url}}" alt="{{user.username}}">
 
 <img class="perfil_user" src="{{user.imagen_perfil.url}}" alt="{{user.usuario.username}}">
 
@@ -19,11 +20,27 @@ View porfile
   <p>Total de post: <strong>{{post_count}}</strong></p>
   <p>Se unio el : <strong>{{user.usuario.date_joined | date}}</strong></p>
   <p>{{user.bio}}</p>
-  <a href="{{user.porfile.website}}" target="_blank"  style="color:blue;">{{user.website}}</a>
+  <a href="{{user.porfile.website}}"   style="color:blue;">{{user.website}}</a>
 
 
 </div>
+<br>
+<br>
+<div class="add">
+  {%if esta_siguiendo == True%}
+  <a href="{% url 'dejar_seguir' pk=user.usuario.pk %}">
+    <button type="button" class="btn btn-dark">Dejar de seguir</button>
 
+  </a>
+  {%elif user.usuario.pk  == request.user.pk%}
+
+{%else%}
+  <a href="{% url 'seguir' pk=user.usuario.pk %}">
+    <button type="button" class="btn btn-success">Seguir</button>
+
+  </a>
+{%endif%}
+</div>
 
 <hr>
 
@@ -61,7 +78,7 @@ View porfile
           </svg>
 
 
-          {{post.autor | title}}</p>
+          {{post.autor.usuario | title}}</p>
 
         <button type="button" class="btn btn-dark"><a href="{% url 'post_details' pk=post.id_post %}">
 

@@ -23,10 +23,6 @@ class PostForm(forms.ModelForm):
             'articulo': SummernoteWidget(),
         }
 
-class PorfileForm(forms.ModelForm):
-    class Meta:
-        model = Porfile
-        fields = ()
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -36,4 +32,4 @@ class UserForm(forms.ModelForm):
 class PorfileForm(forms.ModelForm):
     class Meta:
         model = Porfile
-        fields = ('imagen_perfil', 'bio', 'website')
+        fields = ('imagen_perfil', 'bio', 'website', 'cover')

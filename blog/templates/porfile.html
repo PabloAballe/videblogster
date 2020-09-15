@@ -3,116 +3,131 @@
 {%block title%}Porfile{%endblock%}
 
 {%block contenido%}
+{% load friendshiptags %}
 
 <div class="porfile shadow p-3 mb-5 bg-white rounded">
 
 
+  <img class="cover" src="{{user.porfile.cover.url}}" alt="{{user.username}}">
 
-<img class="perfil_user" src="{{user.porfile.imagen_perfil.url}}" alt="{{user.username}}">
+  <img class="perfil_user" src="{{user.porfile.imagen_perfil.url}}" alt="{{user.username}}">
 
-<div class="datos_usuario">
+  <div class="datos_usuario">
 
     <h2>{{user.first_name | title}} {{user.last_name| title}}</h2>
-  <p><strong>{{user.username | title}}</strong></p>
+    <p><strong>{{user.username | title}}</strong></p>
+    <div class="seguidores " style="">
+      <a href="{% url 'siguiendo' pk=user.pk %}">
+        <p class="btn btn-info ">Siguiendo: <strong>{{num_seguidores}}</strong></p>
+      </a>
+      <a href="{% url 'seguidores' pk=user.pk %}">
+        <p class="btn btn-info">Seguidores: <strong>{{num_seguidos}}</strong></p>
+      </a>
 
-  <p>Total de post: <strong>{{post_count}}</strong></p>
-
-  <p>Última conexión: <strong>{{user.last_login }}</strong></p>
-  <p>Te uniste el : <strong>{{user.date_joined | date}}</strong></p>
-  <p>{{user.porfile.bio}}</p>
-  <a href="{{user.porfile.website}}" target="_blank"  style="color:blue;">{{user.porfile.website}}</a>
 
 
-</div>
-<br>
-<br>
+    </div>
+
+    <p>Total de post: <strong>{{post_count}}</strong></p>
+
+    <p>Última conexión: <strong>{{user.last_login }}</strong></p>
+    <p>Te uniste el : <strong>{{user.date_joined | date}}</strong></p>
+    <p>{{user.porfile.bio}}</p>
+    <a href="{{user.porfile.website}}" style="color:blue;">{{user.porfile.website}}</a>
+
+  </div>
+  <br>
+  <br>
   <div class="add">
     <a href="{% url 'post_new' %}">
 
       <button type="button" class="btn btn-success"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7.5 1.5v-2l3 3h-2a1 1 0 0 1-1-1zM8.5 7a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V11a.5.5 0 0 0 1 0V9.5H10a.5.5 0 0 0 0-1H8.5V7z"/>
-    </svg></button>
+          <path fill-rule="evenodd"
+            d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7.5 1.5v-2l3 3h-2a1 1 0 0 1-1-1zM8.5 7a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V11a.5.5 0 0 0 1 0V9.5H10a.5.5 0 0 0 0-1H8.5V7z" />
+        </svg></button>
 
     </a>
 
   </div>
-<hr>
+  <hr>
 
-<br>
-<br>
+  <br>
+  <br>
 
-<div class="articulos">
-  {%for post in posts%}
-  <a href="{% url 'post_details' pk=post.id_post %}" class="noticias">
-    <div class="card shadow p-3 mb-5 bg-white rounded">
-      <img class="card-img-top" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}">
-      <div class="card-body" href="{% url 'post_details' pk=post.id_post %}">
-        <h5 class="card-title"> {{post.titulo |title}}</h5>
-        <p class="card-text">{{post.descripcion | title}}</p>
-        <p>
+  <div class="articulos">
+    {%for post in posts%}
+    <a href="{% url 'post_details' pk=post.id_post %}" class="noticias">
+      <div class="card shadow p-3 mb-5 bg-white rounded">
+        <img class="card-img-top" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}">
+        <div class="card-body" href="{% url 'post_details' pk=post.id_post %}">
+          <h5 class="card-title"> {{post.titulo |title}}</h5>
+          <p class="card-text">{{post.descripcion | title}}</p>
+          <p>
 
-          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bookmark-star-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M4 0a2 2 0 0 0-2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4zm4.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.178.178 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.178.178 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.178.178 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.178.178 0 0 1-.134-.098L8.16 4.1z" />
-          </svg>
-
-
-          {{post.categoria| title}}</p>
-        <p class="card-text"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar-check-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-5.146-5.146a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
-          </svg> {{post.created_at | date}}</p>
-        <img class="perfil" src="{{post.autor.imagen_perfil.url}}" alt="{{post.autor}}">
-        <p class="card-text">
-
-          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-          </svg>
-
-
-          {{post.autor | title}}</p>
-
-        <button type="button" class="btn btn-dark"><a href="{% url 'post_details' pk=post.id_post %}">
-
-
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-              <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
-            </svg>
-
-          </a></button>
-
-
-        <a href="{% url 'delete' pk=post.id_post %}">
-          <button type="button" class="btn btn-danger">
-
-
-
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bookmark-star-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
-                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" />
+                d="M4 0a2 2 0 0 0-2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4zm4.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.178.178 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.178.178 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.178.178 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.178.178 0 0 1-.134-.098L8.16 4.1z" />
             </svg>
-          </button>
-        </a>
 
-        <a href="{% url 'post_edit' pk=post.id_post %}">
-          <button type="button" class="btn btn-success">
 
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+            {{post.categoria| title}}</p>
+          <p class="card-text"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar-check-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-5.146-5.146a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
+            </svg> {{post.created_at | date}}</p>
+          <p class="card-text">
+
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
             </svg>
-          </button>
-        </a>
+
+
+            {{post.autor.usuario | title}}</p>
+          <img class="perfil" src="{{post.autor.imagen_perfil.url}}" alt="{{post.autor}}">
+
+          <div class="botones" style="margin-top: 40%;">
+            <button type="button" class="btn btn-dark"><a href="{% url 'post_details' pk=post.id_post %}">
+
+
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                  <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                </svg>
+
+              </a></button>
+
+
+            <a href="{% url 'delete' pk=post.id_post %}">
+              <button type="button" class="btn btn-danger">
+
+
+
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z" />
+                </svg>
+              </button>
+            </a>
+
+            <a href="{% url 'post_edit' pk=post.id_post %}">
+              <button type="button" class="btn btn-success">
+
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                </svg>
+              </button>
+            </a>
+          </div>
+
+
+        </div>
 
       </div>
+    </a>
 
-    </div>
-  </a>
-
-  {%endfor%}
-</div>
-
+    {%endfor%}
+  </div>
 
 
 

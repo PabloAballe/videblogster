@@ -4,7 +4,7 @@
 {%block contenido%}
 <div class="articulo shadow p-3 mb-5 bg-white rounded" style="width: 95%; margin: 2%;">
     <hr>
-    <img src="{{post_details.imagen_principal.url}}" alt="{{post_details.titulo| title}}" class="rounded-lg shadow p-3 mb-5 bg-white rounded">
+    <img src="{{post_details.imagen_principal.url}}" alt="{{post_details.titulo| title}}" class="rounded-lg shadow p-3 mb-5 bg-white rounded principal">
     <hr>
   <h1>{{post_details.titulo| title}}</h1>
   <p class="descripcion">{{post_details.descripcion}}</p>
@@ -18,7 +18,7 @@
 
 
 
-  <img class="perfil rounded-circle" src="{{porfile.imagen_perfil.url}}" alt="{{porfile.usuario}}">
+  <img class="perfil" style="" src="{{porfile.imagen_perfil.url}}" alt="{{porfile.usuario}}">
   <a href="{%url 'view_porfile' pk=post_details.autor.id_porfile %}">
     <p class="autor">
 
@@ -27,7 +27,7 @@
       </svg>
 
 
-      {{post_details.autor }}</p>
+      {{post_details.autor.usuario| title }}</p>
   </a>
   <p>
 
@@ -64,13 +64,13 @@
     <div class="guardar">
 
       {%if guardado == True%}
-          <a href="{%url 'guardado_quit' pk=post_details.id_post%}">
+          <a href="{%url 'guardado_quit' pk=post_details.id_post%}" class="quit">
         <button type="button" class="btn btn-dark" style="float: none; height : 10; margin-left:5px;">
       Quitar de Guardado
         </button>
         </a>
       {%else%}
-      <a href="{%url 'guardar_post' pk=post_details.id_post%}">
+      <a href="{%url 'guardar_post' pk=post_details.id_post%}" class="save">
         <button type="button" class="btn btn-success"  style="float: none; height : 10; margin-left:5px;">
           Guardar post
         </button>
