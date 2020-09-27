@@ -35,7 +35,7 @@ CHOICES = (
     ('tecnologia','TECNOLOGIA'),
     ('ciencia','CIENCIA'),
     ('salud','SALUD'),
-    ('estilodevida','ESTILO_DE_VIDA'),
+    ('estilodevida','ESTILO-DE-VIDA'),
     ('mundo', 'MUNDO'),
     ('utilidades','UTILIDADES'),
     ('cocina','COCINA'),

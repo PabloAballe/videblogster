@@ -1,0 +1,6 @@
+-f /usr/share/pip-wheels
+Django==1.11.29
+django-friendship==1.9.1
+django-robots==4.0
+django-summernote==0.8.11.6
+pytz==2020.1

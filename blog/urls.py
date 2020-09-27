@@ -15,6 +15,7 @@ sitemaps = {
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('ads.txt', views.ads_txt, name='ads.txt'),
     path('top', views.top, name='top'),
     path('siguiendo/<int:pk>/', views.siguiendo, name='siguiendo'),
     path('seguidores/<int:pk>/', views.seguidores, name='seguidores'),

@@ -23,6 +23,15 @@ from django.contrib.auth.models import User
 from friendship.models import Friend, Follow, Block
 from friendship.models import FriendshipRequest
 
+
+
+
+
+def ads_txt(request):
+   return render(request, 'ads.txt',{})
+
+
+
 def no_existe(request):
     if request.method == "POST":
         form = SheachForm(request.POST)
