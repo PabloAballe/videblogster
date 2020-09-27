@@ -23,9 +23,10 @@ from django.contrib.auth.models import User
 from friendship.models import Friend, Follow, Block
 from friendship.models import FriendshipRequest
 
+from django.views.defaults import page_not_found
 
-
-
+def handler_404(request, exception):
+    return page_not_found(request, exception, template_name="404.html")
 
 def ads_txt(request):
    return render(request, 'ads.txt',{})

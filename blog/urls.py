@@ -6,6 +6,7 @@ from django.views.generic.base import TemplateView
 from .models import Post
 from django.conf.urls import url
 
+
 sitemaps = {
     'posts': PostSitemap,
 }

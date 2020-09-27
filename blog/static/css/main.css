@@ -96,8 +96,8 @@ svg {
 }
 
 .articulo .principal, .details p img, .details p iframe {
-  width: 50% !important;
-  margin: 2% !important;
+  width: 100%;
+
 }
 
 
@@ -325,8 +325,8 @@ form label {
   }
 
   .articulo .principal, .details p img, .details p iframe {
-    width: 50% !important;
-    margin: 2% !important;
+    width: 100% ;
+
   }
   .siguiendo .perfil_user{
     margin-left: -5%;

@@ -13,9 +13,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=-lz788$8g)&_efodis)00^&qb1@xo^^l!u&g1#^y-au+jeh7m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =False
+DEBUG =True
 
-ALLOWED_HOSTS = ['www.blogsterwebsite.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django_social_share',
     'django.contrib.sitemaps',
     'friendship',
+    'pwa_webpush',
 
 
 ]
@@ -152,3 +153,30 @@ SUMMERNOTE_CONFIG = {
         'height': '600',
         }
         }
+
+
+
+#pwa_webpush
+
+PWA_APP_NAME = 'Blogster Website'
+PWA_APP_DESCRIPTION = "Una comunidad de blogueros alrededor del mundo, un lugar donde dar a conocer tus ideas y hacerte escuchar. No dudes en unirte y pertenecer a la comunidad de blogsters."
+PWA_APP_THEME_COLOR = '#0A0302'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/',
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/images/icono.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': '/static/images/splash.png',
+        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    }
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'es'
