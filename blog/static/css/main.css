@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 
+
 .cover {
   text-align:  !important center;
 }
@@ -20,6 +21,7 @@ html {
   margin: 0px;
   list-style: none;
   font-family: 'Poppins', sans-serif !important;
+  
 }
 
 .post_guardados h1 {
@@ -111,6 +113,17 @@ svg {
   border: solid 1px #09876F;
   padding: 0.5%;
 
+}
+
+.post_scroll{
+transform: scale(0.7);
+margin: -5%;
+}
+.post_scroll .perfil{
+  margin-top:-15%;
+}
+.post_scroll .card-text{
+  margin:10%;
 }
 .perfil_user{
   position: absolute;
@@ -269,7 +282,43 @@ form label {
   width: 100%;
 }
 
+/* scroller articles */
+.scrolling-wrapper{
+
+	overflow-x: auto;
+}
+
+
+
+.card-block{
+	transition: all 0.2s ease-in-out !important;
+}
+
+
+body::-webkit-scrollbar , .scrolling-wrapper::-webkit-scrollbar{
+  width: 1em;
+  overflow: hidden;
+}
+
+body::-webkit-scrollbar-track,.scrolling-wrapper::-webkit-scrollbar {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3) ;
+}
+
+body::-webkit-scrollbar-thumb , .scrolling-wrapper::-webkit-scrollbar{
+  background-color: grey ;
+  outline: 1px solid slategrey ;
+  border-radius: 80px;
+}
+
+
 @media screen and (max-width: 700px) {
+
+  .post_scroll .perfil{
+margin-top: -50%;
+  }
+  .post_scroll .card-text{
+    margin: 30%;
+  }
 
   .seguidores {
     margin: 2% 10% 2% 0%;

@@ -37,7 +37,7 @@
         <a class="nav-link" href="{%url 'top'%}" id="porfile">Top Blogsters</a>
       </li>
 
-   
+
 
       {% if user.is_authenticated %}
 
@@ -117,15 +117,17 @@ Nuevo post </a>
 
       </li>
 
-
-
+{%else%}
+<a href="{% url 'login'%}">
+<button type="button" class="btn btn-info" >Login</button>
+</a>
       {%endif%}
 
     </ul>
 
     {% if request.resolver_match.url_name == "home" %}
     <li class="nav-link dropdown droper ">
-      
+
     <a class=" nav-link dropdown-toggle "  id="opciones" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
         Trending este mes
       </a>

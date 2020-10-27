@@ -10,12 +10,14 @@ from django.utils.text import slugify
 class Porfile(models.Model):
     id_porfile=models.AutoField(primary_key=True, auto_created = True)
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
-    imagen_perfil=models.ImageField(upload_to='porfile/images', default="default/porfile.png")
-    cover=models.ImageField(upload_to='porfile/images/cover', default="default/cover.png")
+    imagen_perfil=models.ImageField(upload_to='porfile/images', default="default/porfile.png", help_text="Imágen de Perfil")
+    cover=models.ImageField(upload_to='porfile/images/cover', default="default/cover.png",help_text="Sube tu cover")
     bio=models.CharField(max_length=300,help_text="Escriba aqui su biografia", null=True, blank=True)
     vistas=models.IntegerField(default=0)
     website=models.CharField(max_length=100,help_text="Ingresa tu sitio web", default="", null=True, blank=True)
     email=models.EmailField(max_length=300,help_text="Tu Email", default="", null=True, blank=True)
+    paypal=models.EmailField(max_length=254, default="", help_text="Tu cuenta de PayPal para recibir los pagos")
+    total_post=models.IntegerField(default=0)
 
     class Meta:
         verbose_name_plural = "Porfiles"
@@ -56,7 +58,7 @@ class Post(models.Model):
     titulo=models.CharField(max_length=100,help_text="Título del artículo")
     descripcion=models.CharField(max_length=300,help_text="Descripción corta del artículo", default="", null=True, blank=True)
     articulo=models.TextField(help_text="Escriba aquí su artículo")
-    imagen_principal=models.ImageField(upload_to='posts/images')
+    imagen_principal=models.ImageField(upload_to='posts/images',help_text="Imágen principal")
     autor=models.ForeignKey(Porfile, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     publicado=models.BooleanField(default=False)

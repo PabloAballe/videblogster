@@ -14,8 +14,8 @@ View porfile
 
 <div class="datos_usuario">
 
-    <h2>{{user.usuario.first_name | title}} {{user.usuario.last_name| title}}</h2>
-  <p><strong>{{user.usuario.username | title}}</strong></p>
+    <h2>{{user.usuario.first_name |lower|capfirst}} {{user.usuario.last_name|lower|capfirst}}</h2>
+  <p><strong>{{user.usuario.username |lower|capfirst}}</strong></p>
 
   <p>Total de post: <strong>{{post_count}}</strong></p>
   <p>Se unio el : <strong>{{user.usuario.date_joined | date}}</strong></p>
@@ -55,8 +55,8 @@ View porfile
     <div class="card shadow p-3 mb-5 bg-white rounded">
       <img class="card-img-top" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}">
       <div class="card-body" href="{% url 'post_details' pk=post.id_post %}">
-        <h5 class="card-title"> {{post.titulo |title}}</h5>
-        <p class="card-text">{{post.descripcion | title}}</p>
+        <h5 class="card-title"> {{post.titulo |lower|capfirst}}</h5>
+        <p class="card-text">{{post.descripcion |lower|capfirst}}</p>
         <p>
 
           <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bookmark-star-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
@@ -65,7 +65,7 @@ View porfile
           </svg>
 
 
-          {{post.categoria| title}}</p>
+          {{post.categoria|lower|capfirst}}</p>
         <p class="card-text"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar-check-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
               d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-5.146-5.146a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
@@ -78,7 +78,7 @@ View porfile
           </svg>
 
 
-          {{post.autor.usuario | title}}</p>
+          {{post.autor.usuario |lower|capfirst}}</p>
 
         <button type="button" class="btn btn-dark"><a href="{% url 'post_details' pk=post.id_post %}">
 

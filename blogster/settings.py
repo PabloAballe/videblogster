@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'friendship',
     'pwa_webpush',
-
+    'import_export',
 
 ]
 

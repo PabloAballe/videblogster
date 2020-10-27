@@ -98,6 +98,9 @@ def porfile(request):
     porfile=get_object_or_404(Porfile, pk=user.porfile.pk)
     posts=Post.objects.all().filter(autor=user.porfile).order_by('-id_post')
     post_count=posts.count()
+    count=Post.objects.all().filter(autor=user.porfile,publicado=True).count()
+    porfile.total_post=count
+    porfile.save()
     categoria=Post.objects.all().order_by('-visitas')[:5]
     context={ 'categoria': categoria, 'porfile': porfile, 'user': user, 'posts': posts, 'post_count': post_count, 'num_seguidores': num_seguidores, 'num_seguidos': num_seguidos}
     return render(request, 'porfile.html', context)
@@ -125,18 +128,24 @@ def top(request):
     context={'categoria': categoria, 'form': form,'post': post }
     return render(request, 'top.html', context)
 
-@login_required
+
 def post_details(request, pk):
-
-    actual_user=request.user
+    post=Post.objects.all().order_by('-id_post')[:10]
     post_details = get_object_or_404(Post, pk=pk)
-    post_guardado = get_object_or_None(PostGuardado, post=pk, usuario=request.user)
+    comment_form  = ComentarioForm()
+    anonimus=request.user
+    actual_user=None
     guardado=False
-    if post_guardado!=None:
-        guardado=True
 
+    if anonimus.id != None:
+        actual_user=request.user
+        post_guardado = get_object_or_None(PostGuardado, post=pk, usuario=request.user)
 
-    porfile=Porfile.objects.get(usuario=request.user)
+        porfile=Porfile.objects.get(usuario=request.user)
+
+        if post_guardado!=None:
+            guardado=True
+
     comentario = None
     comentarios = Comentario.objects.all().filter(post_comentario=pk).order_by('-pk')
     comment_form = ComentarioForm()
@@ -151,7 +160,7 @@ def post_details(request, pk):
                 post_comentario=post_details
                 autor_comentario=request.user
                 comentario = Comentario.objects.create(comentario=comentario_cl,    post_comentario=post_details
-                    ,author_comentario=porfile )
+                ,author_comentario=porfile )
                 comment_form.save()
                 comentario=True
                 return redirect("post_details", pk=post_details.pk )
@@ -179,7 +188,7 @@ def post_details(request, pk):
     post_details.visitas=post_details.visitas+1
     post_details.save()
     porfile=get_object_or_404(Porfile, usuario=post_details.autor.usuario  )
-    context={'post_details': post_details, 'porfile': porfile, 'form': form, 'categoria': categoria, 'comment_form': comment_form, 'comentarios': comentarios, 'comentario': comentario,'actual_user': actual_user, 'guardado': guardado}
+    context={'post_details': post_details, 'porfile': porfile, 'form': form, 'categoria': categoria, 'comment_form': comment_form, 'comentarios': comentarios, 'comentario': comentario,'actual_user': actual_user, 'guardado': guardado, 'post': post}
     return render(request, 'post_details.html', context)
 
 

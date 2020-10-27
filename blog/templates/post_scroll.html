@@ -1,0 +1,29 @@
+<div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 div-scroll">
+  {%for post in post%}
+  {%ifequal post.publicado True%}
+  <a href="{% url 'post_details' pk=post.id_post %}" class="noticias col-5 post_scroll">
+    <div class=" shadow mb-5 bg-white rounded card-block card-{{forloop.counter}}">
+      <img class="card-img-top" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}">
+      <div class="card-body" href="{% url 'post_details' pk=post.id_post %}">
+        <h5 class="card-title"> {{post.titulo |lower|capfirst}}</h5>
+
+          <p class="card-text">
+
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            </svg>
+
+
+            {{post.autor.usuario |lower|capfirst}}</p>
+
+        <img class="perfil" src="{{post.autor.imagen_perfil.url}}" alt="{{post.autor}}">
+
+
+      </div>
+
+    </div>
+  </a>
+
+  {%endifequal%}
+  {%endfor%}
+</div>
