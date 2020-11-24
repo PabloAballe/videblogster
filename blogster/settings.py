@@ -1,5 +1,6 @@
 
 
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -13,7 +14,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=-lz788$8g)&_efodis)00^&qb1@xo^^l!u&g1#^y-au+jeh7m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =True
+DEBUG =False
 
 ALLOWED_HOSTS = ['*']
 
@@ -34,7 +35,7 @@ INSTALLED_APPS = [
     'django_social_share',
     'django.contrib.sitemaps',
     'friendship',
-    'pwa_webpush',
+   
     'import_export',
 
 ]
@@ -78,7 +79,7 @@ WSGI_APPLICATION = 'blogster.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3blogster'),
     }
 }
 
