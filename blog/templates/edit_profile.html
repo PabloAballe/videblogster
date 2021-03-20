@@ -2,11 +2,12 @@
 {%block title%}Edit Porfile
 {%endblock%}
 {%block contenido%}
+{% load crispy_forms_tags %}
 <div class="nuevo_post shadow p-3 mb-5 bg-white rounded">
   <form method="post" enctype="multipart/form-data" style="margin: 5%;">
     {% csrf_token %}
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
+    {{ user_form|crispy }}
+    {{ profile_form |crispy  }}
     <button type="submit" class="btn btn-success">Guardar cambios </button>
 
   </form>

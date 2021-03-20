@@ -5,13 +5,16 @@
   <h2>Siguiendo a</h2>
   <hr>
   {%for user in users%}
-  <a href="{%url 'view_porfile' pk=user.followee.porfile.pk%}">
+  <a href="{%url 'view_porfile' pk=user.seguido.porfile.pk %}" >
     <div class="users ">
-      <img class="perfil_user" src="{{user.followee.porfile.imagen_perfil.url}}" alt="{{user.followee.username}}" style="margin-top: -8%; margin-right: 20%;">
+      <img class="perfil_user" src="{{user.seguido.porfile.imagen_perfil.url}}" alt="{{user.seguido.username}}" style="">
       <div class="datos_usuario ">
 
-        <h2>{{user.followee.first_name | title}} {{user.followee.last_name| title}}</h2>
-        <p><strong>{{user.followee.username | title}}</strong></p>
+        <h2>{{user.seguido.first_name | title}} {{user.last_name| title}}</h2>
+        <p><strong>{{user.seguido.username | title}}</strong></p>
+        <i>Biografia: {{user.seguido.porfile.bio}}</i>
+        <p> Total de post: {{user.seguido.porfile.total_post}}</p>
+        <p>Total de vistas este mes : {{user.seguido.profile.vistas}}</p>
         <br>
       </div>
       <hr>

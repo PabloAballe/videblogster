@@ -14,10 +14,10 @@ View porfile
 
 <div class="datos_usuario">
 
-    <h2>{{user.usuario.first_name |lower|capfirst}} {{user.usuario.last_name|lower|capfirst}}</h2>
+  <h2>{{user.usuario.first_name |lower|capfirst}} {{user.usuario.last_name|lower|capfirst}}</h2>
   <p><strong>{{user.usuario.username |lower|capfirst}}</strong></p>
-
   <p>Total de post: <strong>{{post_count}}</strong></p>
+  <p>Total de visitas este mes: <strong>{{user.vistas}}</strong></p>
   <p>Se unio el : <strong>{{user.usuario.date_joined | date}}</strong></p>
   <p>{{user.bio}}</p>
   <a href="{{user.porfile.website}}"   style="color:blue;">{{user.website}}</a>
@@ -37,7 +37,6 @@ View porfile
 {%else%}
   <a href="{% url 'seguir' pk=user.usuario.pk %}">
     <button type="button" class="btn btn-success">Seguir</button>
-
   </a>
 {%endif%}
 </div>
@@ -46,58 +45,46 @@ View porfile
 
 <br>
 <br>
-
-<div class="articulos">
+<center>
+  <div class="">
 
   {%for post in posts%}
-    {% if post.publicado == True%}
-  <a href="{% url 'post_details' pk=post.id_post %}" class="noticias">
-    <div class="card shadow p-3 mb-5 bg-white rounded">
-      <img class="card-img-top" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}">
-      <div class="card-body" href="{% url 'post_details' pk=post.id_post %}">
-        <h5 class="card-title"> {{post.titulo |lower|capfirst}}</h5>
-        <p class="card-text">{{post.descripcion |lower|capfirst}}</p>
-        <p>
+  {%ifequal post.publicado True%}
+  <div class="col-md-20">
+  <div class="card flex-md-row mb-4 box-shadow h-md-250">
+    <div class="card-body d-flex flex-column align-items-start">
+      <strong class="d-inline-block mb-2 text-primary">{{post.categoria|lower|capfirst}}</strong>
+      <h3 class="mb-0">
+        <a class="text-dark" href="{% url 'post_details' pk=post.id_post %}"> {{post.titulo |lower|capfirst}}</a>
+      </h3>
+      <div class="mb-1 text-muted">{{post.created_at | date}}</div>
+      <p class="card-text mb-auto">{{post.descripcion |lower|capfirst}}</p>
+      <p class="card-text">
 
-          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bookmark-star-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M4 0a2 2 0 0 0-2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4zm4.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.178.178 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.178.178 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.178.178 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.178.178 0 0 1-.134-.098L8.16 4.1z" />
-          </svg>
-
-
-          {{post.categoria|lower|capfirst}}</p>
-        <p class="card-text"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar-check-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-5.146-5.146a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
-          </svg> {{post.created_at | date}}</p>
-        <img class="perfil" src="{{post.autor.imagen_perfil.url}}" alt="{{post.autor}}">
-        <p class="card-text">
-
-          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-          </svg>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+        </svg>
 
 
-          {{post.autor.usuario |lower|capfirst}}</p>
+        {{post.autor.usuario |lower|capfirst}}</p>
 
-        <button type="button" class="btn btn-dark"><a href="{% url 'post_details' pk=post.id_post %}">
+    <img class="perfil" src="{{post.autor.imagen_perfil.url}}" alt="{{post.autor}}">
 
-
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-              <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
-            </svg>
-
-          </a></button>
-
-      </div>
-
+      <a href="{% url 'post_details' pk=post.id_post %}" style="color: #007BCE">Continuar leyendo</a>
     </div>
-  </a>
-  {%endif%}
-  {%endfor%}
+    {% if post.imagen_principal %}
+    <img class="card-img-right flex-auto d-none d-md-block" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}" style="width: 300px">
+    {% else %}
+    <img class="card-img-right flex-auto d-none d-md-block" src="{{post.imagen_url}}" alt="{{post.titulo}}" style="width: 300px">
+    {% endif %}
+  </div>
+</div>
+{%endifequal%}
+{%endfor%}
 
 </div>
+</center>
+
 
 
 

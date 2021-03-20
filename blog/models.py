@@ -5,17 +5,17 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.utils.text import slugify
+from django.contrib.auth.models import AbstractUser
 
 
 class Porfile(models.Model):
     id_porfile=models.AutoField(primary_key=True, auto_created = True)
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, help_text="Nombre de usuario")
     imagen_perfil=models.ImageField(upload_to='porfile/images', default="default/porfile.png", help_text="Imágen de Perfil")
     cover=models.ImageField(upload_to='porfile/images/cover', default="default/cover.png",help_text="Sube tu cover")
     bio=models.CharField(max_length=300,help_text="Escriba aqui su biografia", null=True, blank=True)
     vistas=models.IntegerField(default=0)
     website=models.CharField(max_length=100,help_text="Ingresa tu sitio web", default="", null=True, blank=True)
-    email=models.EmailField(max_length=300,help_text="Tu Email", default="", null=True, blank=True)
     paypal=models.EmailField(max_length=254, default="", help_text="Tu cuenta de PayPal para recibir los pagos")
     total_post=models.IntegerField(default=0)
 
@@ -31,27 +31,20 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 post_save.connect(create_user_profile, sender=User)
 
-CHOICES = (
-    ('hogar','HOGAR'),
-    ('deportes', 'DEPORTES'),
-    ('tecnologia','TECNOLOGIA'),
-    ('ciencia','CIENCIA'),
-    ('salud','SALUD'),
-    ('estilodevida','ESTILO-DE-VIDA'),
-    ('mundo', 'MUNDO'),
-    ('utilidades','UTILIDADES'),
-    ('cocina','COCINA'),
-    ('tutoriales','TUTORIALES'),
-    ('bloguer','BLOGUER'),
-    ('cultura','CULTURA'),
-    ('negocios','NEGOCIOS'),
-    ('politica','POLITICA'),
-    ('opinion','OPINION'),
-    ('moda', 'MODA'),
-    ('viajes','VIAJES'),
 
-)
 
+class Categorias(models.Model):
+    id_categoria=models.AutoField(primary_key=True, auto_created = True)
+    usuario=models.ForeignKey(User, on_delete=models.CASCADE)
+    categoria_nombre=models.CharField(max_length=100,help_text="Título de la categoria")
+    creada_el = models.DateTimeField(default=timezone.now)
+
+
+    class Meta:
+        verbose_name_plural = "Categorias"
+
+    def __str__(self):
+        return f"{self.categoria_nombre}"
 
 class Post(models.Model):
     id_post=models.AutoField(primary_key=True, auto_created = True)
@@ -59,10 +52,11 @@ class Post(models.Model):
     descripcion=models.CharField(max_length=300,help_text="Descripción corta del artículo", default="", null=True, blank=True)
     articulo=models.TextField(help_text="Escriba aquí su artículo")
     imagen_principal=models.ImageField(upload_to='posts/images',help_text="Imágen principal")
+    imagen_url=models.CharField(max_length=300,help_text="URL de la imagen", default="", null=True, blank=True)
     autor=models.ForeignKey(Porfile, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     publicado=models.BooleanField(default=False)
-    categoria=models.CharField(max_length=20,help_text="Categoria del artículo", default="bloguer", choices=CHOICES)
+    categoria=models.ForeignKey(Categorias, on_delete=models.CASCADE)
     visitas=models.IntegerField(default=0)
 
 
@@ -107,3 +101,18 @@ class PostGuardado(models.Model):
 
     def __str__(self):
         return f"Guardado el post con fecha: {self.guardado_el}"
+
+class Seguidores(models.Model):
+    id_seguidor=models.AutoField(primary_key=True, auto_created = True)
+    sigue=models.ForeignKey(User, on_delete=models.DO_NOTHING,related_name="Sigue")
+    seguido=models.ForeignKey(User, on_delete=models.DO_NOTHING,related_name="Seguido")
+    seguiendo_desde = models.DateTimeField(default=timezone.now)
+
+
+    class Meta:
+        verbose_name_plural = "Seguidores"
+
+    def __str__(self):
+        return f"Seguidos desde: {self.seguiendo_desde}"
+
+

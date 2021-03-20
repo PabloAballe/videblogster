@@ -1,11 +1,13 @@
-from django.urls import path, include
+from django.conf.urls import  url, include
 from . import views
 from django.contrib.sitemaps.views import sitemap
 from .sitemaps import PostSitemap
 from django.views.generic.base import TemplateView
 from .models import Post
 from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 
+from django.urls import path
 
 sitemaps = {
     'posts': PostSitemap,
@@ -18,6 +20,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('ads.txt', views.ads_txt, name='ads.txt'),
     path('top', views.top, name='top'),
+     path('api_download', views.api_download, name='api_download'),
     path('siguiendo/<int:pk>/', views.siguiendo, name='siguiendo'),
     path('seguidores/<int:pk>/', views.seguidores, name='seguidores'),
     path('seguir/<int:pk>/', views.seguir, name='seguir'),
@@ -26,7 +29,7 @@ urlpatterns = [
     path('view_porfile/<int:pk>/', views.view_porfile, name='view_porfile'),
     path('guardar_post/<int:pk>/', views.guardar_post, name='guardar_post'),
     path('faq', views.faq, name='faq'),
-    path('categoria/<slug:slug>/', views.categoria, name='categoria'),
+    path('categoria/<int:pk>/', views.categoria, name='categoria'),
     path('404', views.no_existe, name='no_existe'),
     path('porfile', views.porfile, name='porfile'),
     path('post_guardados', views.post_guardados, name='post_guardados'),
@@ -44,5 +47,9 @@ urlpatterns = [
     path('comment/delete/<int:pk>/', views.delete_com, name='delete_com'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('robots.txt',TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),),
-
+    path('accounts/reset_password/', auth_views.PasswordResetView.as_view(), name ='password_reset'),
+    path('accounts/reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name ='password_reset_done'),
+    path('accounts/reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(), name ='password_reset_confirm'),
+    path('accounts/reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name ='password_reset_complete'),
+    
 ]

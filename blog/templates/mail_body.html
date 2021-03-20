@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirma tu email en Blogster</title>
+</head>
+<body>
+<h1>Ya casi lo tienes, {{ user.username }}!</h1><br>
+<h2>Por favor haz clic en el siguiente enlace <a href="{{ link }}">aquí</a> para confirmar tu cuenta en Blogster</h2>
+<h2>Este email expirará en {{ expiry|time:"TIME_FORMAT" }}</h2>
+</body>
+</html>

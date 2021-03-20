@@ -4,10 +4,19 @@
 {%block title%}{{post_details.titulo| title}}{%endblock%}
 {%block contenido%}
 {%include 'scroller.html'%}
-<div class="articulo shadow p-3 mb-5 bg-white rounded" style="width: 95%; margin: 2%;">
+
+<center>
+<div class="articulo" >
     <hr>
+   <center>
+    {% if post_details.imagen_principal %}
     <img src="{{post_details.imagen_principal.url}}" alt="{{post_details.titulo| title}}" class="rounded-lg shadow p-3 mb-5 bg-white rounded principal" style="">
+    {% else %}
+    <img src="{{post_details.imagen_url}}" alt="{{post_details.titulo| title}}" class="rounded-lg shadow p-3 mb-5 bg-white rounded principal" style="">
+    {% endif %}
+  </center>
     <hr>
+  
   <h1>{{post_details.titulo|lower|capfirst}}</h1>
   <p class="descripcion">{{post_details.descripcion|lower|capfirst}}</p>
 
@@ -68,6 +77,7 @@
     {%include 'social.html'%}
 
 {% if user.is_authenticated %}
+<center>
     <div class="guardar">
 
       {%if guardado == True%}
@@ -82,22 +92,26 @@
           Guardar post
         </button>
       </a>
+    </div>
+  </center>
       {%endif%}
 {%endif%}
 
-    </div>
+    
     <br>
     <br>
     <br>
 <hr>
-{% include 'ads.html'%}
+
 <br>
-    <div class="details " style="width: 95%; margin-left: 5%;" >
+    <div class="details " >
       {{post_details.articulo | safe }}
     </div>
 
-{%include 'baner.html'%}
+
 </div>
+</center>
+
 {%include 'post_scroll.html'%}
 {% if user.is_authenticated %}
 {%include 'comentarios.html'%}

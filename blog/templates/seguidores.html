@@ -7,15 +7,17 @@
 <hr>
 
 {%for user in users%}
-<a href="{%url 'view_porfile' pk=user.followee.porfile.pk%}" >
+<a href="{%url 'view_porfile' pk=user.sigue.porfile.pk %}" >
 <div class="users ">
-<img class="perfil_user" src="{{user.followee.porfile.imagen_perfil.url}}" alt="{{user.followee.username}}" style="margin-top: -8%; margin-right: 20%;">
-<div class="datos_usuario ">
-
-<h2>{{user.followee.first_name | title}} {{user.followee.last_name| title}}</h2>
-<p><strong>{{user.followee.username | title}}</strong></p>
-<br>
+<img class="perfil_user" src="{{user.sigue.porfile.imagen_perfil.url}}" alt="{{user.sigue.username}}" style="margin-top: 5%; ">
+<div class="datos_usuario">
+<h2>{{user.sigue.first_name | title}} {{user.last_name| title}}</h2>
+<p><strong>{{user.sigue.username | title}}</strong></p>
+<i>Biografia: {{user.sigue.porfile.bio}}</i>
+<p>Total de post: {{user.sigue.porfile.total_post}}</p>
+<p>Total de vistas este mes : {{user.sigue.profile.vistas}}</p>
 </div>
+<br>
 <hr>
 </div>
 </a>

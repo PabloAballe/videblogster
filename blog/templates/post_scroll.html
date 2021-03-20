@@ -3,7 +3,13 @@
   {%ifequal post.publicado True%}
   <a href="{% url 'post_details' pk=post.id_post %}" class="noticias col-5 post_scroll">
     <div class=" shadow mb-5 bg-white rounded card-block card-{{forloop.counter}}">
+
+      {% if post.imagen_principal %}
       <img class="card-img-top" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}">
+    {% else %}
+    <img class="card-img-top" src="{{post.imagen_url}}" alt="{{post.titulo}}">
+    {% endif %}
+
       <div class="card-body" href="{% url 'post_details' pk=post.id_post %}">
         <h5 class="card-title"> {{post.titulo |lower|capfirst}}</h5>
 

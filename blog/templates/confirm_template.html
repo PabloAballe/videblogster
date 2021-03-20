@@ -1,0 +1,17 @@
+{%extends 'base.html' %}
+
+{%block title%}Email confirmado{%endblock%}
+
+{%block contenido%}
+
+<center>
+    <br><br>
+{% if success %}
+<h2>{{ user.username }}, tu email ha sido confirmado!</h2>
+<p>Haz clic en el siguiente enlace para iniciar tu viaje por Blogster <a href="{% url 'home'%}">inicio</a></p>
+{% else %}
+<h2>Lo sentimos, algo no ha salido como esperabamos</h2>
+<p>Error,token inválido !</p>
+{% endif %}
+</center>
+{%endblock%}

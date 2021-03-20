@@ -17,7 +17,12 @@
     {%ifequal post.publicado True%}
     <div class="carousel-item {% ifequal post primer_post %}active{% endifequal  %}">
       <a href="{% url 'post_details' pk=post.id_post %}">
-      <img src="{{post.imagen_principal.url}}" class="d-block w-100" alt="{{post.titulo}}">
+    {% if post.imagen_principal %}
+        <img src="{{post.imagen_principal.url}}" class="d-block w-100" alt="{{post.titulo}}">
+    {% else %}
+    <img src="{{post.imagen_url}}" class="d-block w-100" alt="{{post.titulo}}">
+    {% endif %}
+    
       </a>
       <div class="carousel-caption d-none d-md-block">
         <h5>{{post.titulo |title}}</h5>
