@@ -12,7 +12,11 @@ from .models import *
 class PostAdmin1(SummernoteModelAdmin):
     summernote_fields = ('articulo',)
 
-class PostAdmin(admin.ModelAdmin):
+class CondicionesAdmin(SummernoteModelAdmin):
+    summernote_fields = '__all__'
+
+class PostAdmin(SummernoteModelAdmin):
+    summernote_fields = '__all__'
     list_display= ['titulo', 'categoria', 'created_at']
     search_fields = ['titulo', 'articulo', 'categoria', 'created_at']
     list_filter =  ['titulo',  'categoria', 'created_at']
@@ -56,3 +60,4 @@ admin.site.register(Comentario, ComentarioAdmin)
 admin.site.register(PostGuardado, PostGuardadoAdmin)
 admin.site.register(Seguidores, SeguidoresAdmin)
 admin.site.register(Categorias, CategoriasAdmin)
+admin.site.register(Condicion, CondicionesAdmin)

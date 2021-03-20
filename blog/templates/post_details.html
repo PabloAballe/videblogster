@@ -5,7 +5,7 @@
 {%block contenido%}
 {%include 'scroller.html'%}
 
-<center>
+
 <div class="articulo" >
     <hr>
    <center>
@@ -28,7 +28,7 @@
   <p> {{post_details.created_at}}</p>
 
 
-
+  {%include 'baner.html'%}
   <img class="perfil" style="" src="{{porfile.imagen_perfil.url}}" alt="{{porfile.usuario}}">
 {% if user.is_authenticated %}
   <a href="{%url 'view_porfile' pk=post_details.autor.id_porfile %}">
@@ -110,8 +110,8 @@
 
 
 </div>
-</center>
 
+{%include 'ads.html'%}
 {%include 'post_scroll.html'%}
 {% if user.is_authenticated %}
 {%include 'comentarios.html'%}

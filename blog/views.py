@@ -131,7 +131,7 @@ def top(request):
     else:
         form = SheachForm()
 
-    categoria=Post.objects.all().order_by('-visitas')[:5]
+    categorias=Categorias.objects.all().order_by('-categoria_nombre')
     post=Post.objects.all().order_by('-visitas')[:100]
 
 
@@ -356,7 +356,8 @@ def privacy(request):
 
 def faq(request):
     year=datetime.date.today().year
-    return render(request, 'faq.html',{'year': year})
+    condiciones=Condicion.objects.all()
+    return render(request, 'faq.html',{'year': year,'condiciones': condiciones})
 
 
 @login_required

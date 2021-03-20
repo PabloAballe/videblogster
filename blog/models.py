@@ -115,4 +115,16 @@ class Seguidores(models.Model):
     def __str__(self):
         return f"Seguidos desde: {self.seguiendo_desde}"
 
+class Condicion(models.Model):
+    id_Condicion=models.AutoField(primary_key=True, auto_created = True)
+    articulo=models.TextField(help_text="Escriba aquí sus condiciones")
+    created_at = models.DateTimeField(default=timezone.now)
+
+
+    class Meta:
+        verbose_name_plural = "Condiciones"
+
+    def __str__(self):
+        return f"Condicion creada el : {self.created_at}"
+
 
