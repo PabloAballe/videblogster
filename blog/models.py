@@ -37,6 +37,7 @@ class Categorias(models.Model):
     id_categoria=models.AutoField(primary_key=True, auto_created = True)
     usuario=models.ForeignKey(User, on_delete=models.CASCADE)
     categoria_nombre=models.CharField(max_length=100,help_text="Título de la categoria")
+    categoria_api=models.CharField(max_length=50,help_text="Término de búsqueda en la api",default="")
     creada_el = models.DateTimeField(default=timezone.now)
 
 

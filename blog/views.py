@@ -43,10 +43,10 @@ def no_existe(request):
         form = SheachForm(request.POST)
 
         if form.is_valid():
-            q= form.cleaned_data['shearch']
-            existe=Post.objects.all().order_by('-id_post').filter(articulo__contains=q).exists()
+            q= form.cleaned_data['shearch'].lower()
+            existe=Post.objects.all().order_by('-id_post').filter(titulo__contains=q).exists()
             if existe==True:
-                post_all=Post.objects.all().order_by('-id_post').filter(articulo__contains=q)
+                post_all=Post.objects.all().order_by('-id_post').filter(titulo__contains=q)
             else:
                 return redirect("no_existe")
             primer_post=False
@@ -84,10 +84,10 @@ def home(request, msg=""):
         form = SheachForm(request.POST)
 
         if form.is_valid():
-            q= form.cleaned_data['shearch']
-            existe=Post.objects.all().order_by('-id_post').filter(articulo__contains=q).exists()
+            q= form.cleaned_data['shearch'].lower()
+            existe=Post.objects.all().order_by('-id_post').filter(titulo__contains=q).exists()
             if existe==True:
-                post_all=Post.objects.all().order_by('-id_post').filter(articulo__contains=q)
+                post_all=Post.objects.all().order_by('-id_post').filter(titulo__contains=q)
             else:
                 return redirect("no_existe")
             primer_post=False
@@ -415,84 +415,10 @@ def api_download(request):
     apikey="e83329a486a64c37853186467a6d63b7"
     date=datetime.date.today().day
     now = time.now()
-    top = requests.get(f"https://newsapi.org/v2/top-headlines?language=es&apiKey={apikey}").json()  
-    espana = requests.get(f"https://newsapi.org/v2/everything?q=espa%C3%B1a&apiKey={apikey}").json() 
-    eua = requests.get(f"https://newsapi.org/v2/everything?q=eua&language=es&apiKey={apikey}").json() 
-    bitcoin = requests.get(f"https://newsapi.org/v2/everything?q=bitcoin&language=es&apiKey={apikey}").json() 
-    tecnologia = requests.get(f"https://newsapi.org/v2/everything?q=tecnologia&language=es&apiKey={apikey}").json()
-    mundo = requests.get(f"https://newsapi.org/v2/everything?q=mundo&language=es&apiKey={apikey}").json() 
-    moda = requests.get(f"https://newsapi.org/v2/everything?q=moda&language=es&apiKey={apikey}").json()
-    tutoriales = requests.get(f"https://newsapi.org/v2/everything?q=tutoriales&language=es&apiKey={apikey}").json()
-    ciencia = requests.get(f"https://newsapi.org/v2/everything?q=ciencia&language=es&apiKey={apikey}").json()
-    cine = requests.get(f"https://newsapi.org/v2/everything?q=cine&language=es&apiKey={apikey}").json()
-    negocios = requests.get(f"https://newsapi.org/v2/everything?q=negocios&language=es&apiKey={apikey}").json()
-    politica = requests.get(f"https://newsapi.org/v2/everything?q=politica&language=es&apiKey={apikey}").json()
-    salud = requests.get(f"https://newsapi.org/v2/everything?q=salud&language=es&apiKey={apikey}").json()
-    deportes = requests.get(f"https://newsapi.org/v2/everything?q=deportes&language=es&apiKey={apikey}").json()
-    opinion = requests.get(f"https://newsapi.org/v2/everything?q=opinion&language=es&apiKey={apikey}").json()
-    viajes = requests.get(f"https://newsapi.org/v2/everything?q=viajes&language=es&apiKey={apikey}").json()
-    categoria_top=Categorias.objects.all()[0]
-    categoria_espana=Categorias.objects.all()[1]
-    categoria_eua=Categorias.objects.all()[2]
-    categoria_bitcoin=Categorias.objects.all()[3]
-    categoria_tecnologia=Categorias.objects.all()[4]
-    categoria_mundo=Categorias.objects.all()[5]
-    categoria_moda=Categorias.objects.all()[6]
-    categoria_tutoriales=Categorias.objects.all()[7]
-    categoria_ciencia=Categorias.objects.all()[8]
-    categoria_cine=Categorias.objects.all()[9]
-    categoria_negocios=Categorias.objects.all()[10]
-    categoria_politica=Categorias.objects.all()[11]
-    categoria_salud=Categorias.objects.all()[12]
-    categoria_deportes=Categorias.objects.all()[13]
-    categoria_opinion=Categorias.objects.all()[14]
-    categoria_viajes=Categorias.objects.all()[15]
-    for post in top['articles']:
-        p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categoria_top , created_at=post['publishedAt'])
-        p.save()
-    for post in espana['articles']:
-        p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categoria_espana , created_at=post['publishedAt'])
-        p.save()
-    for post in eua['articles']:
-        p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categoria_eua , created_at=post['publishedAt'])
-        p.save()
-    for post in bitcoin['articles']:
-        p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categoria_bitcoin , created_at=post['publishedAt'])
-        p.save()
-    for post in tecnologia['articles']:
-        p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categoria_tecnologia , created_at=post['publishedAt'])
-        p.save()
-    for post in mundo['articles']:
-        p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categoria_mundo , created_at=post['publishedAt'])
-        p.save()
-    for post in moda['articles']:
-        p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categoria_moda , created_at=post['publishedAt'])
-        p.save()
-    for post in tutoriales['articles']:
-        p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categoria_tutoriales , created_at=post['publishedAt'])
-        p.save()
-    for post in ciencia['articles']:
-        p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categoria_ciencia , created_at=post['publishedAt'])
-        p.save()
-    for post in cine['articles']:
-        p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categoria_cine , created_at=post['publishedAt'])
-        p.save()
-    for post in negocios['articles']:
-        p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categoria_negocios , created_at=post['publishedAt'])
-        p.save()
-    for post in politica['articles']:
-        p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categoria_politica , created_at=post['publishedAt'])
-        p.save()
-    for post in salud['articles']:
-        p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categoria_salud , created_at=post['publishedAt'])
-        p.save()
-    for post in deportes['articles']:
-        p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categoria_deportes , created_at=post['publishedAt'])
-        p.save()
-    for post in opinion['articles']:
-        p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categoria_opinion , created_at=post['publishedAt'])
-        p.save()
-    for post in viajes['articles']:
-        p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categoria_viajes , created_at=post['publishedAt'])
-        p.save()
+    categorias=Categorias.objects.all()
+    for categorias in categorias:
+         req = requests.get(f"https://newsapi.org/v2/everything?q={categorias.categoria_api}&language=es&apiKey={apikey}").json()
+         for post in req['articles']:
+             p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categorias , created_at=post['publishedAt'])
+             p.save()
     return redirect('porfile')

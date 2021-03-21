@@ -1,5 +1,6 @@
 
 
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -13,7 +14,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=-lz788$8g)&_efodis)00^&qb1@xo^^l!u&g1#^y-au+jeh7m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =True
+DEBUG =False
 
 ALLOWED_HOSTS = ['*']
 
@@ -88,10 +89,10 @@ DATABASES = {
     # },
  'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'blogster',
-            'USER': 'root',
-            'PASSWORD': '',
-            'HOST': 'localhost',
+            'NAME': 'wavecompany$blogster',
+            'USER': 'wavecompany',
+            'PASSWORD': 't73@ZeN89B5mt75',
+            'HOST': 'wavecompany.mysql.pythonanywhere-services.com',
             'PORT': '3306',
         },
 
@@ -232,7 +233,7 @@ EMAIL_MAIL_HTML = 'mail_body.html'
 EMAIL_MAIL_PLAIN = 'mail_body.txt'
 EMAIL_TOKEN_LIFE = 60 * 60
 EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
-EMAIL_PAGE_DOMAIN = 'http://localhost:8000/'
+EMAIL_PAGE_DOMAIN = 'https://www.blogsterwebsite.com/'
 
 # For Django Email Backend
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -248,7 +249,7 @@ AUTHENTICATION_BACKENDS = (
  'allauth.account.auth_backends.AuthenticationBackend',
  )
 
-SITE_ID = 2
+SITE_ID = 3
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 

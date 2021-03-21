@@ -1,8 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 
 
+
 .cover {
   text-align:  !important center;
+}
+
+.users{
+  display:flex;
+  flex-direction: row;
 }
 
 .saber {
@@ -13,7 +19,8 @@
   margin-left: 10%;
 }
 .siguiendo .perfil_user{
-  margin-left: 20%;
+
+  margin:5%;
 }
 
 html {
@@ -21,6 +28,7 @@ html {
   margin: 0px;
   list-style: none;
   font-family: 'Poppins', sans-serif !important;
+  /* font-family: 'Playfair Display', serif  !important; */
   
 }
 
@@ -50,9 +58,12 @@ a, a:hover, a:visited {
   color: black;
 }
 
-* {
+*{
   font-family: 'Poppins', sans-serif !important;
+ 
 }
+
+
 
 #carouselExampleCaptions img {
   height: 450px;
@@ -76,9 +87,9 @@ a, a:hover, a:visited {
 }
 
 .articulo {
-  width: 95%;
+  width: 80%;
   text-align: justify;
-  margin: 2% 10% 2% 10%;
+  margin: 5% ;
 }
 
 .descripcion {
@@ -103,9 +114,9 @@ svg {
 }
 
 
-.articulo .perfil, .comentario img, .noticias .perfil, .perfil_user {
-  width: 80px;
-  height: 80px;
+.perfil, .comentario img, .noticias .perfil {
+  width: 40px;
+  height: 40px;
   border-radius: 150px;
   float: left;
   margin-top: -1%;
@@ -113,6 +124,11 @@ svg {
   border: solid 1px #09876F;
   padding: 0.5%;
 
+}
+.perfil_user{
+  width: 60px;
+  height: 60px;
+  border-radius: 150px;
 }
 
 .post_scroll{
@@ -126,9 +142,7 @@ margin: -5%;
   margin:10%;
 }
 .perfil_user{
-  position: absolute;
-  top: 320px;
-  left: 100px;
+
   background-color: white;
 }
 
@@ -149,7 +163,7 @@ margin: -5%;
 }
 
 .datos_usuario {
-  margin-left: 15%;
+  margin-left: 5%;
   margin-top: 2%;
 }
 
@@ -168,14 +182,26 @@ margin: -5%;
 }
 
 .add button, .guardar button, .seguir button {
-  position: absolute;
-  width: 50%;
+
   margin-top: 0%;
+
+}
+.add button{
+  width: 50%;
+  position: absolute;
   margin-left: 20%;
 }
 
+.api{
+    width: 100%;
+ 
+    /* top:10%; */
+    /* position: absolute; */
+  
+}
+
 .guardar button, .seguir button {
-  margin: 10px 10px 5px 5px;
+  margin: 10px 10px 5px 10px;
 }
 
 .seguidores {
@@ -230,11 +256,13 @@ form label {
 .login {
   text-align: center;
   margin-top: 5%;
+  width: 30%;
 }
 
 .registro {
-  margin-left: 40%;
+  text-align: center;
   margin-top: 1%;
+  width:30%;
 }
 
 .card button {
@@ -244,7 +272,7 @@ form label {
 
 .articulos {
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto auto;
+  grid-template-columns: 20% 20% 20% 20% 20% 20% 20%;
 }
 
 .suma {
@@ -288,8 +316,6 @@ form label {
 	overflow-x: auto;
 }
 
-
-
 .card-block{
 	transition: all 0.2s ease-in-out !important;
 }
@@ -313,6 +339,15 @@ body::-webkit-scrollbar-thumb , .scrolling-wrapper::-webkit-scrollbar{
 
 @media screen and (max-width: 700px) {
 
+  .login {
+  
+    width: 100%;
+  }
+  
+  .registro {
+    width:100%;
+  }
+
   .post_scroll .perfil{
 margin-top: -50%;
   }
@@ -325,7 +360,7 @@ margin-top: -50%;
   }
   .perfil_user{
 
-    left: 50px;
+    /* left: 50px; */
 
   }
   .social {
@@ -336,7 +371,7 @@ margin-top: -50%;
 
   .datos_usuario {
     margin-left: 0%;
-      margin-top: 20%;
+    margin-top: 20%;
 
   }
 
@@ -344,10 +379,6 @@ margin-top: -50%;
     margin-left: 10%;
   }
 
-  .registro {
-    margin-left: 20%;
-    margin-top: 5%;
-  }
 
   .articulos {
     display: grid;
@@ -374,11 +405,10 @@ margin-top: -50%;
   }
 
   .articulo .principal, .details p img, .details p iframe {
-    width: 100% ;
+    width: 80% ;
 
   }
   .siguiendo .perfil_user{
     margin-left: -5%;
-    margin-top: -500%;
   }
 }
