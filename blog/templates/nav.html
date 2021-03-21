@@ -20,7 +20,7 @@
       <img src="{% static 'images/icono.png'%}" width="30" height="30" alt="" loading="lazy">
     </a>
     
-  <a class="navbar-brand" href="{%url 'home'%}">Blogster</a>
+  <a class="navbar-brand" href="{%url 'home'%}">Video Blogster</a>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -34,7 +34,7 @@
       </li>
 
       <li class="nav-item {% if request.resolver_match.url_name == "top" %}active{% endif %}">
-        <a class="nav-link" href="{%url 'top'%}" id="porfile">Top Blogsters</a>
+        <a class="nav-link" href="{%url 'top'%}" id="porfile">Top Video Blogsters</a>
       </li>
 
 
@@ -43,7 +43,7 @@
       
       <li class="nav-item {% if request.resolver_match.url_name == "post_new" %}active{% endif %}">
         <a class="nav-link" href="{%url 'post_new'%}">
-            Nuevo post </a>
+            Subir Video </a>
       </li>
 
       <li class="nav-item dropdown droper {% if request.resolver_match.url_name == "porfile" %}active{% endif %}"" >
@@ -85,7 +85,7 @@
       </svg>
 
 
-              Post guardados</a>
+      Videos guardados</a>
           <a class="dropdown-item" href="{% url 'edit_porfile' %}">
 
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -147,7 +147,7 @@
     <li class="nav-link dropdown droper ">
 
     <a class=" nav-link dropdown-toggle "  id="opciones" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
-        Trending este mes
+        Trending Videos
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         {%for post in categoria%}
@@ -182,7 +182,7 @@
     {% if request.resolver_match.url_name == "top" %}
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Trending este mes
+        Trending Videos
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         {%for post in categoria%}

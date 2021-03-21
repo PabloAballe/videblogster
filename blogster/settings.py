@@ -14,7 +14,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=-lz788$8g)&_efodis)00^&qb1@xo^^l!u&g1#^y-au+jeh7m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =False
+DEBUG =True
 
 ALLOWED_HOSTS = ['*']
 
@@ -89,10 +89,10 @@ DATABASES = {
     # },
  'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'wavecompany$blogster',
-            'USER': 'wavecompany',
-            'PASSWORD': 't73@ZeN89B5mt75',
-            'HOST': 'wavecompany.mysql.pythonanywhere-services.com',
+            'NAME': 'videoblogster',
+            'USER': 'root',
+            'PASSWORD': '',
+            'HOST': 'localhost',
             'PORT': '3306',
         },
 

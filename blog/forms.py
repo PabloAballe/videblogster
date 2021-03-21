@@ -8,6 +8,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.forms import CharField, Form, PasswordInput
+from django.core.validators import FileExtensionValidator
 
 
 # Extendemos del original
@@ -61,11 +62,8 @@ class ComentarioForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('titulo', 'descripcion', 'imagen_principal', 'categoria','articulo')
-        widgets = {
-            'articulo': SummernoteWidget(),
-        }
-
+        fields = ('titulo', 'descripcion', 'imagen_principal', 'categoria', 'video')
+        
 
 class UserForm(forms.ModelForm):
     username = forms.CharField(label = "Escriba su nombre de usuario aquí.", help_text="Escriba su nombre de usuario aquí.")

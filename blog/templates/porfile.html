@@ -28,10 +28,11 @@
 
     </div>
 
-    <p>Total de post: <strong>{{post_count}}</strong></p>
+    <p>Total de Videos: <strong>{{post_count}}</strong></p>
 
     <p>Última conexión: <strong>{{user.last_login }}</strong></p>
     <p>Te uniste el : <strong>{{user.date_joined | date}}</strong></p>
+    <p>Total de visitas : <strong>{{user.visitas}}</strong></p>
     <p>{{user.porfile.bio |lower|capfirst}}</p>
     <a href="{{user.porfile.website}}" style="color:blue;">{{user.porfile.website}}</a>
 
@@ -45,7 +46,7 @@
       <button type="button" style="margin-left: -25%;" class="btn btn-success"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-plus-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd"
             d="M2 2a2 2 0 0 1 2-2h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm7.5 1.5v-2l3 3h-2a1 1 0 0 1-1-1zM8.5 7a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V11a.5.5 0 0 0 1 0V9.5H10a.5.5 0 0 0 0-1H8.5V7z" />
-        </svg>Nuevo Post</button>
+        </svg>Nuevo Video</button>
 
     </a>
 
@@ -119,9 +120,9 @@
         
       </div>
       {% if post.imagen_principal %}
-    <img class="card-img-right flex-auto d-none d-md-block" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}" style="width: 300px">
+    <img class="card-img-right flex-auto d-md-block" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}" style="width: 300px">
     {% else %}
-    <img class="card-img-right flex-auto d-none d-md-block" src="{{post.imagen_url}}" alt="{{post.titulo}}" style="width: 300px">
+    <img class="card-img-right flex-auto  d-md-block" src="{{post.imagen_url}}" alt="{{post.titulo}}" style="width: 300px">
     {% endif %}
      
     </div>

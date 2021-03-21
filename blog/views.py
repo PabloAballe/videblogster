@@ -29,6 +29,8 @@ from django_email_verification import send_email
 from .forms import AFWithEmail,UCFWithEmail
 import requests
 from datetime import datetime as time
+from youtube_search import YoutubeSearch
+import json
 
 def handler_404(request, exception):
     return page_not_found(request, exception, template_name="404.html")
@@ -121,10 +123,10 @@ def top(request):
         form = SheachForm(request.POST)
 
         if form.is_valid():
-            q= form.cleaned_data['shearch']
-            existe=Post.objects.all().order_by('-id_post').filter(articulo__contains=q).exists()
+            q= form.cleaned_data['shearch'].lower()
+            existe=Post.objects.all().order_by('-id_post').filter(titulo__contains=q).exists()
             if existe==True:
-                post_all=Post.objects.all().order_by('-id_post').filter(articulo__contains=q)
+                post_all=Post.objects.all().order_by('-id_post').filter(titulo__contains=q)
             else:
                 return redirect("no_existe")
             primer_post=False
@@ -141,7 +143,7 @@ def top(request):
 
 
 def post_details(request, pk):
-    post=Post.objects.all().order_by('-id_post')[:10]
+    post=Post.objects.all().order_by('-id_post')[:50]
     post_details = get_object_or_404(Post, pk=pk)
     comment_form  = ComentarioForm()
     anonimus=request.user
@@ -184,10 +186,10 @@ def post_details(request, pk):
         form = SheachForm(request.POST)
 
         if form.is_valid():
-            q= form.cleaned_data['shearch']
-            existe=Post.objects.all().order_by('-id_post').filter(articulo__contains=q).exists()
+            q= form.cleaned_data['shearch'].lower()
+            existe=Post.objects.all().order_by('-id_post').filter(titulo__contains=q).exists()
             if existe==True:
-                post_all=Post.objects.all().order_by('-id_post').filter(articulo__contains=q)
+                post_all=Post.objects.all().order_by('-id_post').filter(titulo__contains=q)
             else:
                 return redirect("no_existe")
             primer_post=False
@@ -296,16 +298,19 @@ def logout(request):
 def post_new(request):
     porfile=Porfile.objects.get(usuario=request.user)
     if request.method == "POST":
+       
         form = PostForm(request.POST, request.FILES,instance=request.user)
+        
         if form.is_valid():
             post = form.save()
             titulo=form.cleaned_data['titulo']
             descripcion=form.cleaned_data['descripcion']
-            articulo=form.cleaned_data['articulo']
+            
             categoria=form.cleaned_data['categoria']
             autor = porfile
             imagen_principal=form.cleaned_data['imagen_principal']
-            articulo= Post.objects.create(titulo=titulo,    descripcion=descripcion ,articulo=articulo,categoria=categoria, autor=autor, imagen_principal=imagen_principal  )
+            video=form.cleaned_data['video']
+            articulo= Post.objects.create(titulo=titulo,    descripcion=descripcion ,video=video,categoria=categoria, autor=autor, imagen_principal=imagen_principal  )
             post.save()
             return redirect('porfile')
     else:
@@ -417,8 +422,9 @@ def api_download(request):
     now = time.now()
     categorias=Categorias.objects.all()
     for categorias in categorias:
-         req = requests.get(f"https://newsapi.org/v2/everything?q={categorias.categoria_api}&language=es&apiKey={apikey}").json()
-         for post in req['articles']:
-             p=Post(titulo=post['title'], descripcion=post['description'], articulo=str(post['content'])+'\n'+'Autor: '+str(post['author'])+'\n'+'Seguir leyendo: '+str(post['url']),imagen_url=post['urlToImage'],autor=request.user.porfile, publicado=True,categoria=categorias , created_at=post['publishedAt'])
+         req = YoutubeSearch(categorias.categoria_api, max_results=10000).to_json()
+         data = json.loads(req)
+         for post in data["videos"]:
+             p=Post(titulo=post['title'], descripcion=post['long_desc'], video_url=post['id'],imagen_url=post['thumbnails'][0],autor=request.user.porfile, publicado=True,categoria=categorias )
              p.save()
     return redirect('porfile')

@@ -6,7 +6,7 @@ from django.dispatch import receiver
 from django.urls import reverse
 from django.utils.text import slugify
 from django.contrib.auth.models import AbstractUser
-
+from django.core.validators import FileExtensionValidator
 
 class Porfile(models.Model):
     id_porfile=models.AutoField(primary_key=True, auto_created = True)
@@ -49,22 +49,24 @@ class Categorias(models.Model):
 
 class Post(models.Model):
     id_post=models.AutoField(primary_key=True, auto_created = True)
-    titulo=models.CharField(max_length=100,help_text="Título del artículo")
-    descripcion=models.CharField(max_length=300,help_text="Descripción corta del artículo", default="", null=True, blank=True)
-    articulo=models.TextField(help_text="Escriba aquí su artículo")
-    imagen_principal=models.ImageField(upload_to='posts/images',help_text="Imágen principal")
+    titulo=models.CharField(max_length=100,help_text="Título del video")
+    descripcion=models.CharField(max_length=300,help_text="Descripción corta del video", default="", null=True, blank=True)
+    imagen_principal=models.ImageField(upload_to='posts/images',help_text="Cover de tu video")
+    video=models.FileField(upload_to='videos/',help_text="Sube tu video",validators=[FileExtensionValidator(allowed_extensions=['mp4', 'avi', 'mkv', 'mov'])])
     imagen_url=models.CharField(max_length=300,help_text="URL de la imagen", default="", null=True, blank=True)
+    video_url=models.CharField(max_length=300,help_text="URL de la imagen", default="", null=True, blank=True, )
     autor=models.ForeignKey(Porfile, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     publicado=models.BooleanField(default=False)
-    categoria=models.ForeignKey(Categorias, on_delete=models.CASCADE)
+    monetizar=models.BooleanField(default=False,help_text="¿Queires monetizar tu video?")
+    categoria=models.ForeignKey(Categorias, on_delete=models.CASCADE,help_text="Elige la categoria de tu video")
     visitas=models.IntegerField(default=0)
 
 
 
 
     class Meta:
-        verbose_name_plural = "Posts"
+        verbose_name_plural = "Videos"
 
     def __str__(self):
         return self.titulo
@@ -98,10 +100,10 @@ class PostGuardado(models.Model):
 
 
     class Meta:
-        verbose_name_plural = "PostGuardados"
+        verbose_name_plural = "Videos Guardados"
 
     def __str__(self):
-        return f"Guardado el post con fecha: {self.guardado_el}"
+        return f"Guardado el video con fecha: {self.guardado_el}"
 
 class Seguidores(models.Model):
     id_seguidor=models.AutoField(primary_key=True, auto_created = True)

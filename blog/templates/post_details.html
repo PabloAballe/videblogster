@@ -9,15 +9,18 @@
 <div class="articulo" >
     <hr>
    <center>
-    {% if post_details.imagen_principal %}
-    <img src="{{post_details.imagen_principal.url}}" alt="{{post_details.titulo| title}}" class="rounded-lg shadow p-3 mb-5 bg-white rounded principal" style="">
+    {% if post_details.video_url %}
+    <object ><param name="movie" value="http://www.youtube.com/v/{{post_details.video_url}}?version=3"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><embed src="http://www.youtube.com/v/{{post_details.video_url}}?version=3" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always"></object>
     {% else %}
-    <img src="{{post_details.imagen_url}}" alt="{{post_details.titulo| title}}" class="rounded-lg shadow p-3 mb-5 bg-white rounded principal" style="">
+    <video  controls >
+      <source src="{{post_details.video.url}}" type="video/mp4">
+      <b>{{post_details.titulo|lower|capfirst}}</b>
+      </video>
     {% endif %}
   </center>
     <hr>
   
-  <h1>{{post_details.titulo|lower|capfirst}}</h1>
+  <h5>{{post_details.titulo|lower|capfirst}}</h5>
   <p class="descripcion">{{post_details.descripcion|lower|capfirst}}</p>
 
   <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar-check-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +31,6 @@
   <p> {{post_details.created_at}}</p>
 
 
-  {%include 'baner.html'%}
   <img class="perfil" style="" src="{{porfile.imagen_perfil.url}}" alt="{{porfile.usuario}}">
 {% if user.is_authenticated %}
   <a href="{%url 'view_porfile' pk=post_details.autor.id_porfile %}">
@@ -83,13 +85,13 @@
       {%if guardado == True%}
           <a href="{%url 'guardado_quit' pk=post_details.id_post%}" class="quit">
         <button type="button" class="btn btn-dark" style="float: none; height : 10; margin-left:5px;">
-      Quitar de Guardado
+      Quitar Video de Guardado
         </button>
         </a>
       {%else%}
       <a href="{%url 'guardar_post' pk=post_details.id_post%}" class="save">
         <button type="button" class="btn btn-success"  style="float: none; height : 10; margin-left:5px;">
-          Guardar post
+          Guardar Video
         </button>
       </a>
     </div>
@@ -104,14 +106,10 @@
 <hr>
 
 <br>
-    <div class="details " >
-      {{post_details.articulo | safe }}
-    </div>
-
+  
 
 </div>
 
-{%include 'ads.html'%}
 {%include 'post_scroll.html'%}
 {% if user.is_authenticated %}
 {%include 'comentarios.html'%}
