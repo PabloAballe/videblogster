@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.utils.text import slugify
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator
+from django.core.validators import RegexValidator
 
 class Porfile(models.Model):
     id_porfile=models.AutoField(primary_key=True, auto_created = True)
@@ -47,12 +48,34 @@ class Categorias(models.Model):
     def __str__(self):
         return f"{self.categoria_nombre}"
 
+
+class ExtensionValidator(RegexValidator):
+    def __init__(self, extensions, message=None):
+        if not hasattr(extensions, '__iter__'):
+            extensions = [extensions]
+        regex = '\.(%s)$' % '|'.join(extensions)
+        if message is None:
+            message = 'File type not supported. Accepted types are: %s.' % ', '.join(extensions)
+        super(ExtensionValidator, self).__init__(regex, message)
+
+    def __call__(self, value):
+        super(ExtensionValidator, self).__call__(value.name)
+
+
+
+# def validate_file_extensions(value):
+#   import os
+#   ext = os.path.splitext(value.name)[1]
+#   valid_extensions = ['.mkv','.mp4','.mov', '.wmv', '.wma']
+#   if not ext in valid_extensions:
+#     raise ValidationError(u'File not supported!')
+
 class Post(models.Model):
     id_post=models.AutoField(primary_key=True, auto_created = True)
     titulo=models.CharField(max_length=100,help_text="Título del video")
-    descripcion=models.CharField(max_length=300,help_text="Descripción corta del video", default="", null=True, blank=True)
+    descripcion=models.TextField(help_text="Descripción corta del video", default="", null=True, blank=True)
     imagen_principal=models.ImageField(upload_to='posts/images',help_text="Cover de tu video")
-    video=models.FileField(upload_to='videos/',help_text="Sube tu video",validators=[FileExtensionValidator(allowed_extensions=['mp4', 'avi', 'mkv', 'mov'])])
+    video=models.FileField(upload_to='videos/',help_text="Sube tu video")
     imagen_url=models.CharField(max_length=300,help_text="URL de la imagen", default="", null=True, blank=True)
     video_url=models.CharField(max_length=300,help_text="URL de la imagen", default="", null=True, blank=True, )
     autor=models.ForeignKey(Porfile, on_delete=models.CASCADE)
@@ -129,5 +152,18 @@ class Condicion(models.Model):
 
     def __str__(self):
         return f"Condicion creada el : {self.created_at}"
+
+class PostLike(models.Model):
+    id_post_like=models.AutoField(primary_key=True, auto_created = True)
+    usuario=models.ForeignKey(User, on_delete=models.CASCADE)
+    post=models.ForeignKey(Post, on_delete=models.CASCADE)
+    like_post_el = models.DateTimeField(default=timezone.now)
+
+
+    class Meta:
+        verbose_name_plural = "Videos Likes"
+
+    def __str__(self):
+        return f"Like el video con fecha: {self.guardado_el}"
 
 

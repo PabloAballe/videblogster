@@ -6,11 +6,10 @@
 {%include 'scroller.html'%}
 
 
-<div class="articulo" >
-    <hr>
+<hr>
    <center>
     {% if post_details.video_url %}
-    <object ><param name="movie" value="http://www.youtube.com/v/{{post_details.video_url}}?version=3"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><embed src="http://www.youtube.com/v/{{post_details.video_url}}?version=3" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always"></object>
+    <iframe src="https://www.youtube.com/embed/{{post_details.video_url}}" autoplay=1 allowfullscreen></iframe>
     {% else %}
     <video  controls >
       <source src="{{post_details.video.url}}" type="video/mp4">
@@ -19,16 +18,20 @@
     {% endif %}
   </center>
     <hr>
-  
+
+<div class="articulo" >
+
+
   <h5>{{post_details.titulo|lower|capfirst}}</h5>
   <p class="descripcion">{{post_details.descripcion|lower|capfirst}}</p>
 
-  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar-check-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
+
+
+
+  <p><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar-check-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd"
       d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-5.146-5.146a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
-  </svg>
-
-  <p> {{post_details.created_at}}</p>
+  </svg> {{post_details.created_at}}</p>
 
 
   <img class="perfil" style="" src="{{porfile.imagen_perfil.url}}" alt="{{porfile.usuario}}">
@@ -96,21 +99,19 @@
       </a>
     </div>
   </center>
-      {%endif%}
+ {%endif%}
 {%endif%}
 
-    
-    <br>
-    <br>
-    <br>
+
 <hr>
 
-<br>
-  
+
+  <h2>Videos recomendados </h2>
 
 </div>
 
 {%include 'post_scroll.html'%}
+{%include 'sidebar.html'%}
 {% if user.is_authenticated %}
 {%include 'comentarios.html'%}
 {%endif%}

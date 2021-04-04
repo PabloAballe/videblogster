@@ -20,7 +20,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('ads.txt', views.ads_txt, name='ads.txt'),
     path('top', views.top, name='top'),
-     path('api_download', views.api_download, name='api_download'),
+    path('api_download', views.api_download, name='api_download'),
     path('siguiendo/<int:pk>/', views.siguiendo, name='siguiendo'),
     path('seguidores/<int:pk>/', views.seguidores, name='seguidores'),
     path('seguir/<int:pk>/', views.seguir, name='seguir'),
@@ -33,7 +33,9 @@ urlpatterns = [
     path('404', views.no_existe, name='no_existe'),
     path('porfile', views.porfile, name='porfile'),
     path('post_guardados', views.post_guardados, name='post_guardados'),
-    path('post/borrar/guardado/<int:pk>/', views.guardado_quit, name='guardado_quit'),
+    path('post/quitar/guardado/<int:pk>/', views.guardado_quit, name='guardado_quit'),
+    path('liked_post', views.liked_post, name='liked_post'),
+    path('post/borrar/like/<int:pk>/', views.like_quit, name='like_quit'),
     path('edit/porfile', views.update_profile, name='edit_porfile'),
     path('post/<int:pk>/', views.post_details, name='post_details'),
     path('summernote/', include('django_summernote.urls')),
@@ -51,5 +53,4 @@ urlpatterns = [
     path('accounts/reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name ='password_reset_done'),
     path('accounts/reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(), name ='password_reset_confirm'),
     path('accounts/reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name ='password_reset_complete'),
-    
 ]

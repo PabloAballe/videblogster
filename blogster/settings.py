@@ -39,11 +39,11 @@ INSTALLED_APPS = [
     'import_export',
     'django_email_verification',
     'crispy_forms',
-    'django.contrib.sites',   
-    'allauth',  
-    'allauth.account',   
-    'allauth.socialaccount',  
-    'allauth.socialaccount.providers.google',  
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -89,10 +89,10 @@ DATABASES = {
     # },
  'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'videoblogster',
-            'USER': 'root',
-            'PASSWORD': '',
-            'HOST': 'localhost',
+            'NAME': 'wavecompany$videoblogster',
+            'USER': 'wavecompany',
+            'PASSWORD': 't73@ZeN89B5mt75',
+            'HOST': 'wavecompany.mysql.pythonanywhere-services.com',
             'PORT': '3306',
         },
 
@@ -233,7 +233,7 @@ EMAIL_MAIL_HTML = 'mail_body.html'
 EMAIL_MAIL_PLAIN = 'mail_body.txt'
 EMAIL_TOKEN_LIFE = 60 * 60
 EMAIL_PAGE_TEMPLATE = 'confirm_template.html'
-EMAIL_PAGE_DOMAIN = 'https://www.blogsterwebsite.com/'
+EMAIL_PAGE_DOMAIN = 'https://www.videoblogster.com/'
 
 # For Django Email Backend
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -249,7 +249,7 @@ AUTHENTICATION_BACKENDS = (
  'allauth.account.auth_backends.AuthenticationBackend',
  )
 
-SITE_ID = 3
+SITE_ID = 4
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
@@ -264,3 +264,5 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -1,11 +1,11 @@
 <div class="scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 div-scroll">
   {%for post in post%}
   {%ifequal post.publicado True%}
-  <a href="{% url 'post_details' pk=post.id_post %}" class="noticias col-5 post_scroll">
+  <a href="{% url 'post_details' pk=post.id_post %}" class="noticias col-5 post_scroll" style="min-width: 300px;">
     <div class=" shadow mb-5 bg-white rounded card-block card-{{forloop.counter}}">
 
       {% if post.imagen_principal %}
-      <img class="card-img-top" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}">
+      <img class="card-img-top" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}" style="border-radius:20px;>
     {% else %}
     <img class="card-img-top" src="{{post.imagen_url}}" alt="{{post.titulo}}">
     {% endif %}

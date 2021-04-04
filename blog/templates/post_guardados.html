@@ -14,10 +14,9 @@ Videos Guardados
   </div>
   {% endfor %}
 
-<h5>Tus videos guardados</h5>
+<h1>Tus videos guardados</h1>
 
 
-<center>
   <div class="">
 
     {%for post_guardados in post%}
@@ -27,7 +26,7 @@ Videos Guardados
     <div class="card-body d-flex flex-column align-items-start">
       <strong class="d-inline-block mb-2 text-primary">{{post_guardados.post.categoria| title}}</strong>
       <h3 class="mb-0">
-        <a class="text-dark"  href="{% url 'post_details' pk=post_guardados.post.id_post %}"> {{post_guardados.post.autor.usuario | title}}</a>
+        <a class="text-dark"  href="{% url 'post_details' pk=post_guardados.post.id_post %}"> {{post_guardados.post.titulo | title}}</a>
       </h3>
       <div class="mb-1 text-muted"> {{post_guardados.post.created_at | date}}</div>
       <p class="card-text mb-auto">{{post_guardados.post.descripcion | title}}</p>
@@ -44,18 +43,19 @@ Videos Guardados
 
       <a href="{% url 'post_details' pk=post_guardados.post.id_post %}" style="color: #007BCE">Continuar leyendo</a>
     </div>
+    <a href="{% url 'post_details' pk=post_guardados.post.id_post %}" >
     {% if post.imagen_principal %}
-    <img class="card-img-right flex-auto d-none d-md-block" src="{{post_guardados.post.imagen_principal.url}}" alt="{{post_guardados.post.titulo}}" style="width: 300px">
+    <img class="card-img-right flex-auto  d-md-block" src="{{post_guardados.post.imagen_principal.url}}" alt="{{post_guardados.post.titulo}}"  style="max-width: 350px; border-radius:20px;margin-top:10px;margin-right:10px;">
     {% else %}
-  
-    <img class="card-img-right flex-auto d-none d-md-block" src="{{post_guardados.post.imagen_url}}" alt="{{post_guardados.post.titulo}}" style="width: 300px">
+
+    <img class="card-img-right flex-auto  d-md-block" src="{{post_guardados.post.imagen_url}}" alt="{{post_guardados.post.titulo}}"  style="max-width: 350px; border-radius:20px;margin-top:10px;margin-right:10px;">
     {% endif %}
-  
+  </a>
   </div>
 </div>
 
 {%endfor%}
 
 </div>
-</center>
+
  {%endblock%}

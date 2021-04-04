@@ -5,12 +5,23 @@
 {%block contenido%}
 {% include 'scroller.html'%}
 {% include 'main.html'%}
+
 {%include 'slide.html'%}
+{%include 'sidebar.html'%}
+{% include 'userlist.html'%}
+<div style="">
+<div>
+
+{%include 'post.html'%}
+</div>
+<div>
+    {%include 'sidebar.html'%}
+</div>
+</div>
+
 
 <!--<h4 class="suma">Total visitas este mes: {{total.sum}}</h4>-->
 
-{%include 'ads.html'%}
-{%include 'post.html'%}
 
 
 {%endblock%}

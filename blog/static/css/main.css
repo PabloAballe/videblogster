@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 
 
-object, video {
+object, video,iframe {
   width: 100%;
   height: 500px;
 }
@@ -32,7 +32,7 @@ html {
   list-style: none;
   font-family: 'Poppins', sans-serif !important;
   /* font-family: 'Playfair Display', serif  !important; */
-  
+
 }
 
 .post_guardados h1 {
@@ -63,7 +63,7 @@ a, a:hover, a:visited {
 
 *{
   font-family: 'Poppins', sans-serif !important;
- 
+
 }
 
 
@@ -197,10 +197,10 @@ margin: -5%;
 
 .api{
     width: 100%;
- 
+
     /* top:10%; */
     /* position: absolute; */
-  
+
 }
 
 .guardar button, .seguir button {
@@ -304,7 +304,7 @@ form label {
 }
 
 .save {
-  margin-top: -2%;
+
   margin-right: 10%;
   margin-bottom: 10%;
 }
@@ -342,19 +342,21 @@ body::-webkit-scrollbar-thumb , .scrolling-wrapper::-webkit-scrollbar{
 
 @media screen and (max-width: 700px) {
 
-  object , video{
-    width: 100%;
-    height: 100%;
+  object , video,iframe{
+    width: 150%;
+    height: 150%;
   }
- 
+
   .login {
-  
+
     width: 100%;
   }
-  
+
   .registro {
     width:100%;
   }
+
+
 
   .post_scroll .perfil{
 margin-top: -50%;
@@ -419,4 +421,7 @@ margin-top: -50%;
   .siguiendo .perfil_user{
     margin-left: -5%;
   }
+  .post_scroll{
+    margin: -10%;
+}
 }

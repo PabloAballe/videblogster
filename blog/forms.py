@@ -7,8 +7,9 @@ from django.contrib.auth.models import User
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from django.forms import CharField, Form, PasswordInput
+from django.forms import CharField, Form, PasswordInput, FileInput
 from django.core.validators import FileExtensionValidator
+from upload_validator import FileTypeValidator
 
 
 # Extendemos del original
@@ -34,8 +35,8 @@ class UCFWithEmail(UserCreationForm):
             'password1': ('Escriba su contraseña aquí.'),
             'password2': ('Confirme su contraseña.'),
         }
-    
-        
+
+
 
 
 # Extendemos del original
@@ -44,7 +45,7 @@ class AFWithEmail(AuthenticationForm):
     #username = forms.EmailField(label="Correo electrónico")
     username = forms.CharField(label = "Escriba su nombre de usuario aquí.", help_text="Escriba su nombre de usuario aquí.")
     password = forms.CharField(widget=PasswordInput(), help_text="Escriba su contraseña aquí.")
-    
+
     class Meta:
         model = User
         fields = ["username", "password"]
@@ -60,10 +61,17 @@ class ComentarioForm(forms.ModelForm):
         comentario = forms.CharField( label="", max_length=100 , widget= forms.TextInput
                                (attrs={'class':'input'}))
 class PostForm(forms.ModelForm):
+    video = forms.FileField(
+    label='Sube tu video aquí', help_text="Solo formatos de video son válidos.", required=True,
+    validators=[FileTypeValidator(
+        allowed_types=[ 'video/*']
+    )]
+    )
     class Meta:
         model = Post
+        widgets = {'video': FileInput(attrs={'accept': 'application/mov,application/mp4, application/mkv, application/avi'})}
         fields = ('titulo', 'descripcion', 'imagen_principal', 'categoria', 'video')
-        
+
 
 class UserForm(forms.ModelForm):
     username = forms.CharField(label = "Escriba su nombre de usuario aquí.", help_text="Escriba su nombre de usuario aquí.")

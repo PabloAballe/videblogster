@@ -1,13 +1,24 @@
 {% load social_share %}
 {%load static%}
 
-<div class="social">
-  <img src="{%static 'images/iconos/face.png'%}" alt="Facebook">
-  {% post_to_facebook request.get_full_path "Compartir via Facebook!" %}
-  <img src="{%static 'images/iconos/tw.png'%}" alt="Twitter">
-  {% post_to_twitter "Mira este post de Blogster: {{post_details.titulo| title}}" request.get_full_path "Compartir via Twitter" %}
-  <img src="{%static 'images/iconos/gmail.png'%}" alt="Gmail">
-  {% send_email object.title "Mira este post de Blogster: {{post_details.titulo| title}}." request.get_full_path "Compartir via email" %}
-  <img src="{%static 'images/iconos/what.png'%}" alt="Whatsapp">
-  {% post_to_whatsapp request.get_full_path "Compartir via WhatsApp" %}
+<div class="social" style="display:flex; ">
+<div style="margin:3px">
+<img src="{%static 'images/iconos/face.png'%}" alt="Facebook">
+  {% post_to_facebook request.get_full_path " Facebook!" %}
+</div>
+<div style="margin:3px">
+      <img src="{%static 'images/iconos/tw.png'%}" alt="Twitter">
+  {% post_to_twitter "Mira este post de Blogster: {{post_details.titulo| title}}" request.get_full_path " Twitter" %}
+</div>
+<div style="margin:3px">
+     <img src="{%static 'images/iconos/what.png'%}" alt="Whatsapp">
+  {% post_to_whatsapp request.get_full_path " WhatsApp" %}
+</div>
+<div style="margin:3px">
+    <img src="{%static 'images/iconos/gmail.png'%}" alt="Gmail">
+  {% send_email object.title "Mira este post de Blogster: {{post_details.titulo| title}}." request.get_full_path " Email" %}
+</div>
+
+
+
 </div>

@@ -17,7 +17,7 @@ View porfile
   <h2>{{user.usuario.first_name |lower|capfirst}} {{user.usuario.last_name|lower|capfirst}}</h2>
   <p><strong>{{user.usuario.username |lower|capfirst}}</strong></p>
   <p>Total de post: <strong>{{post_count}}</strong></p>
-  <p>Total de visitas este mes: <strong>{{user.vistas}}</strong></p>
+<p>Total de visitas : <strong>{{user.vistas}}</strong></p>
   <p>Se unio el : <strong>{{user.usuario.date_joined | date}}</strong></p>
   <p>{{user.bio}}</p>
   <a href="{{user.porfile.website}}"   style="color:blue;">{{user.website}}</a>
@@ -26,8 +26,8 @@ View porfile
 </div>
 <br>
 <br>
-<div class="add">
-  {%if esta_siguiendo == True%}
+<div class="add" style="z-index:5">
+  {%if esta_siguiendo == True %}
   <a href="{% url 'dejar_seguir' pk=user.usuario.pk %}">
     <button type="button" class="btn btn-dark">Dejar de seguir</button>
 
@@ -70,13 +70,15 @@ View porfile
 
     <img class="perfil" src="{{post.autor.imagen_perfil.url}}" alt="{{post.autor}}">
 
-      <a href="{% url 'post_details' pk=post.id_post %}" style="color: #007BCE">Continuar leyendo</a>
+      <a href="{% url 'post_details' pk=post.id_post %}" style="color: #007BCE"> Ver ahora </a>
     </div>
+    <a class="text-dark" href="{% url 'post_details' pk=post.id_post %}">
     {% if post.imagen_principal %}
-    <img class="card-img-right flex-auto d-none d-md-block" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}" style="width: 300px">
+    <img class="card-img-right flex-auto d-md-block" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}" style="max-width: 350px; border-radius:20px;margin-top:10px;margin-right:10px;">
     {% else %}
-    <img class="card-img-right flex-auto d-none d-md-block" src="{{post.imagen_url}}" alt="{{post.titulo}}" style="width: 300px">
+    <img class="card-img-right flex-auto d-md-block" src="{{post.imagen_url}}" alt="{{post.titulo}}" style="max-width: 350px; border-radius:20px;margin-top:10px;margin-right:10px;">
     {% endif %}
+    </a>
   </div>
 </div>
 {%endifequal%}

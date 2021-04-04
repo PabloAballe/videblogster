@@ -1,0 +1,34 @@
+
+<nav id="sidebar" style="margin-left:5%">
+<div class="p-4 pt-5">
+
+<div class="mb-5">
+<h5>Categorias</h5>
+<div class="tagcloud">
+{% for categoria in categorias %}
+<a href="{% url 'categoria' pk=categoria.pk %}" class="tag-cloud-link">{{categoria.categoria_nombre}}</a>
+
+{% endfor %}
+</div>
+</div>
+</div>
+</div>
+</nav>
+
+<style>
+    .tagcloud a {
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 4px 10px;
+  margin-bottom: 7px;
+  margin-right: 4px;
+  border-radius: 4px;
+  color: #000;
+  border: 1px solid #ccc;
+  font-size: 11px; }
+  .tagcloud a:hover {
+    border-color: #246EFD;
+    background: #246EFD;
+    color: #fff; }
+
+</style>

@@ -10,17 +10,17 @@
 <center>
 
   <div class="registro shadow p-3 mb-5 bg-white rounded">
-  <img src="{%static 'images/icono.png'%}" alt="Blogster">
+  <img src="{%static 'images/icono.png'%}" width="100px;" alt="Video Blogster">
   <h2>Registrate en Blogster</h2>
 
   <form method="POST">
       {% csrf_token %}
       {{ form_reg |crispy  }}
-     
+
         {% for error in field.errors %}
         <p style="color: red">{{ error | safe }}</p>
         {% endfor %}
-       
+
     <button type="submit" class="boton btn-dark">Registrate</button>
   </form>
   <hr>

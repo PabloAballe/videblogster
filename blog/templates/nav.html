@@ -13,13 +13,13 @@
   </div>
   <!-- End of Cookie Banner -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top  shadow p-3 mb-5 bg-white rounded >
-  
+
 
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" href="{%url 'home'%}">
       <img src="{% static 'images/icono.png'%}" width="30" height="30" alt="" loading="lazy">
     </a>
-    
+
   <a class="navbar-brand" href="{%url 'home'%}">Video Blogster</a>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@
     <ul class="navbar-nav mr-auto">
 
       <li class="nav-item {% if request.resolver_match.url_name == "home" %}active{% endif %}">
-        <a class="nav-link" href="{%url 'home'%}">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{%url 'home'%}">Inicio </a>
       </li>
 
       <li class="nav-item {% if request.resolver_match.url_name == "top" %}active{% endif %}">
@@ -40,7 +40,7 @@
 
 
       {% if user.is_authenticated %}
-      
+
       <li class="nav-item {% if request.resolver_match.url_name == "post_new" %}active{% endif %}">
         <a class="nav-link" href="{%url 'post_new'%}">
             Subir Video </a>
@@ -67,7 +67,7 @@
               <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
             </svg>
           Administrar sitio
-        
+
         </a>
           {% endif %}
           <a class="dropdown-item" href="{%url 'porfile'%}">
@@ -179,14 +179,52 @@
 
     {% endif %}
 
-    {% if request.resolver_match.url_name == "top" %}
+
+      {% if request.resolver_match.url_name == "categoria" %}
+    <li class="nav-link dropdown droper ">
+
+    <a class=" nav-link dropdown-toggle "  id="opciones" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >
+        Trending Videos
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        {%for post in categoria%}
+        <a class="dropdown-item" href="{% url 'categoria' pk=post.categoria.pk %}">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bookmark-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M4 0a2 2 0 0 0-2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4zm4.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.178.178 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.178.178 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.178.178 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.178.178 0 0 1-.134-.098L8.16 4.1z" />
+          </svg>
+
+          {{post.categoria | title}}</a>
+        {%endfor%}
+
+    </li>
+
+    <form class="form-inline my-2 my-lg-0" method="post">
+      {% csrf_token %}
+      {{form}}
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+
+        <svg width="10px" height="10px" viewBox="0 0 16 16" class="bi shearch bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+          <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+        </svg>
+
+
+
+      </button>
+    </form>
+
+    {% endif %}
+
+
+    {% if request.resolver_match.url_name == "top"  %}
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Trending Videos
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        {%for post in categoria%}
-        <a class="dropdown-item" href="{% url 'categoria' pk=categoria.pk %}">
+        {%for post in categoria %}
+        <a class="dropdown-item" href="{% url 'categoria' pk=post.categoria.pk %}">
           <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bookmark-star-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
               d="M4 0a2 2 0 0 0-2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4zm4.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.178.178 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.178.178 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.178.178 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.178.178 0 0 1-.134-.098L8.16 4.1z" />
@@ -198,7 +236,7 @@
     </li>
     <form class="form-inline my-2 my-lg-0" method="post">
       {% csrf_token %}
-      {{form_as_p}}
+      {{form}}
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
 
 
@@ -219,10 +257,11 @@
     {% endif %}
 
 
+
   </div>
-    
+
   </nav>
-  
+
 
 
 </nav>

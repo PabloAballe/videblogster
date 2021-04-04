@@ -17,15 +17,15 @@ class CondicionesAdmin(SummernoteModelAdmin):
 
 class PostAdmin(SummernoteModelAdmin):
     summernote_fields = '__all__'
-    list_display= ['titulo', 'categoria', 'created_at']
-    search_fields = ['titulo', 'articulo', 'categoria', 'created_at']
-    list_filter =  ['titulo',  'categoria', 'created_at']
+    list_display= ['titulo', 'categoria', 'created_at','visitas','publicado']
+    search_fields = ['titulo',  'categoria', 'created_at']
+    list_filter =  [  'created_at', 'categoria','publicado','visitas']
 
 
 class PorfileAdmin(ImportExportModelAdmin):
-    list_display=[ 'id_porfile','paypal','vistas']
-    search_fields = [ 'id_porfile','paypal','vistas']
-    list_filter =['paypal','vistas']
+    list_display=[ 'usuario','total_post','vistas']
+    search_fields = [ 'usuario','total_post','vistas']
+    list_filter =['usuario','vistas', 'total_post']
 
 
 class ComentarioAdmin(admin.ModelAdmin):

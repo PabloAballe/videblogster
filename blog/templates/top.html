@@ -29,12 +29,12 @@
 
     <img class="perfil" src="{{post.autor.imagen_perfil.url}}" alt="{{post.autor}}">
 
-      <a href="{% url 'post_details' pk=post.id_post %}" style="color: #007BCE">Ver </a>
+      <a href="{% url 'post_details' pk=post.id_post %}" style="color: #007BCE">Ver ahora </a>
     </div>
     {% if post.imagen_principal %}
-    <img class="card-img-right flex-auto d-md-block" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}" style="width: 300px">
+    <img class="card-img-right flex-auto d-md-block" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}" style="max-width: 350px; border-radius:20px;margin-top:10px;margin-right:10px;">
     {% else %}
-    <img class="card-img-right flex-auto d-md-block" src="{{post.imagen_url}}" alt="{{post.titulo}}" style="width: 300px">
+    <img class="card-img-right flex-auto d-md-block" src="{{post.imagen_url}}" alt="{{post.titulo}}" style="max-width: 350px; border-radius:20px;margin-top:10px;margin-right:10px;">
     {% endif %}
   </div>
 </div>
