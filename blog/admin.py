@@ -15,7 +15,7 @@ class PostAdmin1(SummernoteModelAdmin):
 class CondicionesAdmin(SummernoteModelAdmin):
     summernote_fields = '__all__'
 
-class PostAdmin(SummernoteModelAdmin):
+class PostAdmin(SummernoteModelAdmin,ImportExportModelAdmin):
     summernote_fields = '__all__'
     list_display= ['titulo', 'categoria', 'created_at','visitas','publicado']
     search_fields = ['titulo',  'categoria', 'created_at']
@@ -28,23 +28,23 @@ class PorfileAdmin(ImportExportModelAdmin):
     list_filter =['usuario','vistas', 'total_post']
 
 
-class ComentarioAdmin(admin.ModelAdmin):
+class ComentarioAdmin(ImportExportModelAdmin):
     list_display= ['created_at']
     search_fields = ['publicado', 'created_at']
     list_filter = ['publicado', 'created_at']
 
-class PostGuardadoAdmin(admin.ModelAdmin):
+class PostGuardadoAdmin(ImportExportModelAdmin):
     list_display= ['id_post_guardado','guardado_el']
     search_fields = ['id_post_guardado','guardado_el']
     list_filter = ['id_post_guardado','guardado_el']
 
 
-class SeguidoresAdmin(admin.ModelAdmin):
+class SeguidoresAdmin(ImportExportModelAdmin):
     list_display= ['sigue','seguido', 'seguiendo_desde']
     search_fields = ['sigue','seguido', 'seguiendo_desde']
     list_filter = ['sigue','seguido', 'seguiendo_desde']
 
-class CategoriasAdmin(admin.ModelAdmin):
+class CategoriasAdmin(ImportExportModelAdmin):
     list_display= ['categoria_nombre','creada_el']
     search_fields = ['categoria_nombre','creada_el']
     list_filter = ['categoria_nombre','creada_el']

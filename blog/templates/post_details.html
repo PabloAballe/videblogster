@@ -49,7 +49,7 @@
 
       {{post_details.autor.usuario|lower|capfirst}}</p>
   </a>
-  <p>
+  <a href="{%url 'categoria' pk=post_details.categoria.id_categoria %}">
 
     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bookmark-star-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
       <path fill-rule="evenodd"
@@ -58,7 +58,7 @@
 
 
     {{post_details.categoria |lower|capfirst}}</p>
-  <p>
+  <a>
 
     <p>
 
