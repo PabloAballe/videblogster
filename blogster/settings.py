@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'django_inlinecss',
+    'bootstrap_modal_forms',
 ]
 
 MIDDLEWARE = [
@@ -266,3 +268,9 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+# MAILCHIMP CREDENTIALS
+MAILCHIMP_API_KEY = "ee86f3c58145fcc63ffcbe115788098e-us17"
+MAILCHIMP_DATA_CENTER = "s17"
+MAILCHIMP_EMAIL_LIST_ID = "b4e516bc99"

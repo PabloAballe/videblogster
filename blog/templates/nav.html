@@ -162,7 +162,7 @@
 
     </li>
 
-    <form class="form-inline my-2 my-lg-0" method="post">
+    <form class="form-inline my-2 my-lg-0" method="post" style="display: flex;">
       {% csrf_token %}
       {{form}}
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
@@ -199,6 +199,7 @@
 
     </li>
 
+
     <form class="form-inline my-2 my-lg-0" method="post">
       {% csrf_token %}
       {{form}}
@@ -234,6 +235,7 @@
         {%endfor%}
 
     </li>
+
     <form class="form-inline my-2 my-lg-0" method="post">
       {% csrf_token %}
       {{form}}
@@ -256,7 +258,9 @@
 
     {% endif %}
 
-
+<!--<li>-->
+<!--    {% include 'googletraslate.html'%}-->
+<!--</li>-->
 
   </div>
 

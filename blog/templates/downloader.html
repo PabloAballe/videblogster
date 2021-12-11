@@ -1,6 +1,6 @@
 
 
-<div style="width: 70%; margin:auto;">
+<div style="width: 70%; margin:auto; padding: 5%;">
     <div class="container">
       <div class="mb-3">
         <form action="{% url 'download' %}" method="post">
@@ -35,7 +35,7 @@
       var btn = document.getElementById('btn');
       var para = document.getElementById('para_alert');
       btn.addEventListener('click', function(){
-        btn.innerHTML = '<button type="submit" class="btn btn-danger" type="submit" disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Descargando...</button>';
+        btn.innerHTML = '<button type="submit" class="btn btn-danger" type="submit" disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="margin:5px;"></span>Descargando...</button>';
       });
 
 

@@ -1,15 +1,15 @@
 
 
 
-<main style="margin:30px;">
+<main style="margin:30px; ">
 <div class="site-section">
 <div class="container">
 <div class="row justify-content-center">
 <div class="col-md-9">
-<div class="row">
+<div class="row" style="display: grid;grid-template-columns: auto auto ;overflow: hidden;">
 {% for usuario in usuarios %}
 
-<div class="col-md-6" style="margin:5px;">
+<div class="col-md-6" style="">
 <div class="d-flex post-entry">
 <div class="custom-thumbnail">
 <img src="{{usuario.imagen_perfil.url}}" style="max-width: 30px; border-radius:50%;"alt="{{usuario.user.username}}" class="img-fluid">

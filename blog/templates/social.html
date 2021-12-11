@@ -7,15 +7,15 @@
   {% post_to_facebook request.get_full_path " Facebook!" %}
 </div>
 <div style="margin:3px">
-      <img src="{%static 'images/iconos/tw.png'%}" alt="Twitter">
+      <img src="{%static 'images/iconos/tw.png'%}" loading="lazy"  alt="Twitter">
   {% post_to_twitter "Mira este post de Blogster: {{post_details.titulo| title}}" request.get_full_path " Twitter" %}
 </div>
 <div style="margin:3px">
-     <img src="{%static 'images/iconos/what.png'%}" alt="Whatsapp">
+     <img src="{%static 'images/iconos/what.png'%}" loading="lazy"  alt="Whatsapp">
   {% post_to_whatsapp request.get_full_path " WhatsApp" %}
 </div>
 <div style="margin:3px">
-    <img src="{%static 'images/iconos/gmail.png'%}" alt="Gmail">
+    <img src="{%static 'images/iconos/gmail.png'%}"  loading="lazy" alt="Gmail">
   {% send_email object.title "Mira este post de Blogster: {{post_details.titulo| title}}." request.get_full_path " Email" %}
 </div>
 

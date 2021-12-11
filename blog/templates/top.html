@@ -4,43 +4,87 @@
 
 
 
-  <div class="">
 
-  {%for post in post%}
+
+
+
+
+<!-- Gallery -->
+<div class="container">
+
+{%for post in post %}
   {%ifequal post.publicado True%}
-  <div class="col-md-20">
-  <div class="card flex-md-row mb-4 box-shadow h-md-250">
-    <div class="card-body d-flex flex-column align-items-start">
-      <strong class="d-inline-block mb-2 text-primary">{{post.categoria|lower|capfirst}}</strong>
-      <h3 style="color:#218838;">Top: {{forloop.counter}}</h3>
-      <h3 class="mb-0">
-        <a class="text-dark" href="{% url 'post_details' pk=post.id_post %}"> {{post.titulo |lower|capfirst}}</a>
-      </h3>
-      <div class="mb-1 text-muted">{{post.created_at | date}}</div>
-      <p class="card-text mb-auto">{{post.descripcion |lower|capfirst}}</p>
-      <p class="card-text">
 
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="grey" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-        </svg>
-
-
-        {{post.autor.usuario |lower|capfirst}}</p>
-
-    <img class="perfil" src="{{post.autor.imagen_perfil.url}}" alt="{{post.autor}}">
-
-      <a href="{% url 'post_details' pk=post.id_post %}" style="color: #007BCE">Ver ahora </a>
+  <a href="{% url 'post_details' pk=post.id_post %}" class="item">
+      <div class="card-background-vblogster">
+           {% if post.imagen_principal %}
+             <img
+                  src="{{post.imagen_principal.url}}"
+                  class="w-100 shadow-1-strong rounded mb-4 "
+                  alt="{{post.titulo}}"
+                />
+            {% else %}
+             <img
+                  src="{{post.imagen_url}}}"
+                  class="w-100 shadow-1-strong rounded mb-4"
+                  alt="{{post.titulo}}"
+                />
+            {% endif %}
+         <div class="card-background-vblogster-text shadow  mb-5 bg-white rounded">
+             <h3 style="color:#218838;">Top: {{forloop.counter}}</h3>
+            <a class="" href="{% url 'post_details' pk=post.id_post %}" onclick="spinner()">{{post.titulo |lower|capfirst}}</a>
+            <p class="mb-1 text-muted">{{post.categoria|lower|capfirst}}</p>
+            <p class="mb-1 text-muted">{{post.visitas}} visitas</p>
+            <p class="mb-1 text-muted">{{post.created_at | date}}</p>
+            <p class="card-text mb-auto">{{post.descripcion |lower|capfirst}}</p>
+        </div>
     </div>
-    {% if post.imagen_principal %}
-    <img class="card-img-right flex-auto d-md-block" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}" style="max-width: 350px; border-radius:20px;margin-top:10px;margin-right:10px;">
-    {% else %}
-    <img class="card-img-right flex-auto d-md-block" src="{{post.imagen_url}}" alt="{{post.titulo}}" style="max-width: 350px; border-radius:20px;margin-top:10px;margin-right:10px;">
-    {% endif %}
-  </div>
-</div>
+
+</a>
 {%endifequal%}
 {%endfor%}
 
 </div>
+
+
+
+
+<style>
+.container {
+  max-width: 98%;
+  display: flex;
+  align-items: center;
+  -webkit-justify-content: center;
+  /* Safari */
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.item {
+  padding: 10px;
+  max-height: 40vh;
+}
+
+
+
+.item > img {
+  height: 50%;
+  margin: 0 1rem 0 2rem;
+  box-shadow: 10px 14px 20px 0px rgba(226,204,189,1);
+  max-width: 15rem;
+   display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.card-background-vblogster-text{
+    padding: 10rem 1rem 1rem 1rem;
+    max-width: 20rem;
+    margin: -10rem 1rem 1rem 1rem;
+}
+</style>
+
+
+
+
 
 {%endblock%}

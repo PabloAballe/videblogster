@@ -15,7 +15,6 @@ from .forms import PorfileForm
 from django.contrib.auth.models import User
 from .forms import UserForm
 from annoying.functions import get_object_or_None
-from django.contrib.auth.models import User
 from .models  import *
 from django.contrib import messages
 from django.views.defaults import page_not_found
@@ -33,19 +32,59 @@ from django.contrib import messages
 from django.http import FileResponse
 from django.core.files.base import ContentFile
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from youtubesearchpython import VideosSearch
+from youtubesearchpython import *
+import json
+from django.http import JsonResponse
+from asgiref.sync import sync_to_async
+#youtube downloader
+from pytube import *
+import os, glob
+import mimetypes
+from django.core.validators import URLValidator
+from django.core.exceptions import ValidationError
+import hashlib # A standard library that does hashes
+from django.conf import settings
+# Mailchimp Settings
+api_key = settings.MAILCHIMP_API_KEY
+server = settings.MAILCHIMP_DATA_CENTER
+list_id = settings.MAILCHIMP_EMAIL_LIST_ID
 
+from django.conf import settings
+from mailchimp_marketing import Client
+from mailchimp_marketing.api_client import ApiClientError
+from django.template.loader import render_to_string
+from django.core.mail import send_mail, EmailMessage
+
+# Email Logic
+@sync_to_async
+@login_required
+def send_email(request):
+    sender = settings.EMAIL_HOST_USER.encode(encoding='utf-8')
+    post_all=Post.objects.all().order_by('?')[:10]
+    emails = User.objects.filter(is_active=True).exclude(email='').values_list('email', flat=True)
+    msg_html = render_to_string('mails_from_users.html', {
+        'post_all': post_all
+    })
+    to_list='pablo970616@gmail.com'
+    msg = EmailMessage(subject='Novedades en Video Blosgter 😉', body=msg_html, from_email=sender, bcc=[to_list])
+    msg.content_subtype = "html"  # Main content is now text/html
+    return msg.send()
+
+
+@sync_to_async
 def handler_404(request, exception):
     return page_not_found(request, exception, template_name="404.html")
-
+@sync_to_async
 def ads_txt(request):
    return render(request, 'ads.txt',{})
 
 
-
+@sync_to_async
 def no_existe(request):
     return render(request, "no_existe.html")
 
-
+@sync_to_async
 def home(request, msg=""):
     # data = dict()
     # messages.success(request, "Success: This is the sample success Flash message.")
@@ -58,15 +97,10 @@ def home(request, msg=""):
     post=Post.objects.all().order_by('-visitas')[:10]
     primer_post=Post.objects.all().order_by('-visitas').first()
     post_all=Post.objects.all().order_by('?')[1:25]
-    categoria=Post.objects.all().order_by('-visitas')[:10]
+    categoria=Post.objects.all().order_by('-visitas').distinct()[:10]
     categorias=Categorias.objects.all().order_by('?')[:10]
 
-#set 0 because begueans the mont
-    # if date==1 and now.time=='00:00:00':
-    #     vistas=Porfile.objects.all()
-    #     vistas.update(vistas=0)
-    #     visitas=Post.objects.all()
-    #     visitas.update(visitas=0)
+
 
     if request.method == "POST":
         form = SheachForm(request.POST)
@@ -86,7 +120,7 @@ def home(request, msg=""):
     context={"date": date, "post": post, 'primer_post': primer_post, 'post_all': post_all, 'form': form, 'categoria': categoria, 'categorias':categorias, 'usuarios': usuarios}
 
     return render(request, 'home.html', context)
-
+@sync_to_async
 @login_required
 def porfile(request):
     user=request.user
@@ -103,7 +137,7 @@ def porfile(request):
     categoria=Post.objects.all().order_by('-visitas')[:5]
     context={ 'categoria': categoria, 'porfile': porfile, 'user': user, 'posts': posts, 'post_count': post_count, 'num_seguidores': num_seguidores, 'num_seguidos': num_seguidos}
     return render(request, 'porfile.html', context)
-
+@sync_to_async
 def top(request):
     categoria=Post.objects.all().order_by('-visitas')[:10]
     categorias=Categorias.objects.all().order_by('?')[:10]
@@ -126,7 +160,7 @@ def top(request):
     context={'categoria': categoria,'categorias': categorias, 'form': form,'post': post }
     return render(request, 'top.html', context)
 
-
+@sync_to_async
 def post_details(request, pk):
     post=Post.objects.all().order_by('?')[:15]
     post_details = get_object_or_404(Post, pk=pk)
@@ -134,7 +168,6 @@ def post_details(request, pk):
     anonimus=request.user
     actual_user=None
     guardado=False
-    # likes=PostLike.objects.get(post=pk).count()
     liked_post_check=False
     categorias=Categorias.objects.all().order_by('?')[:10]
     if anonimus.id != None:
@@ -145,14 +178,6 @@ def post_details(request, pk):
 
         if post_guardado!=None:
             guardado=True
-    # if anonimus.id != None:
-    #     actual_user=request.user
-    #     post_like = get_object_or_None(PostLike, post=pk, usuario=request.user)
-    #     porfile=Porfile.objects.get(usuario=request.user)
-
-    #     if post_like!=None:
-
-    #         liked_post_check=True
 
     comentario = None
     comentarios = Comentario.objects.all().filter(post_comentario=pk).order_by('-pk')
@@ -187,7 +212,7 @@ def post_details(request, pk):
     porfile.save()
     context={'post_details': post_details, 'porfile': porfile, 'categoria': categoria, 'comment_form': comment_form, 'comentarios': comentarios, 'comentario': comentario,'actual_user': actual_user, 'guardado': guardado, 'post': post, 'categorias':categorias}
     return render(request, 'post_details.html', context)
-
+@sync_to_async
 @login_required
 def guardar_post(request, pk):
     user=request.user
@@ -195,19 +220,21 @@ def guardar_post(request, pk):
     guardar=PostGuardado.objects.create(usuario=user, post=post)
     guardar.save()
     msg="Se ha guardado correctamente el post"
-    return redirect('post_guardados');
+    return redirect('post_guardados')
+@sync_to_async
 @login_required
 def post_guardados(request):
     user=request.user
     post_guardados=PostGuardado.objects.all().filter(usuario=user).order_by('-id_post_guardado')
     return render(request, 'post_guardados.html',{'post': post_guardados})
+@sync_to_async
 @login_required
 def guardado_quit(request, pk):
     user=request.user
     borrar_post_guardado=get_object_or_404(PostGuardado, post=pk, usuario=user).delete()
     return redirect("post_guardados")
 
-
+@sync_to_async
 def categoria(request, pk):
     categorias=Categorias.objects.all().order_by('?')[:10]
     cate=Post.objects.all().order_by('-visitas').filter(categoria=pk)[:80]
@@ -238,7 +265,7 @@ def categoria(request, pk):
     context={'categorias': categorias, 'post_all': cat, 'categoria': categoria , 'form': form }
     return render(request, 'categoria_details.html', context)
 
-
+@sync_to_async
 def register(request):
     categoria=Post.objects.all().order_by('-visitas')[:10]
     # Creamos el formulario de autenticación vacío
@@ -269,7 +296,7 @@ def register(request):
     # Si llegamos al final renderizamos el formulario
     return render(request, "register.html", {'form_reg': form_reg, 'categoria': categoria})
 
-
+@sync_to_async
 def login(request):
     categoria=Post.objects.all().order_by('-visitas')[:10]
     # Creamos el formulario de autenticación vacío
@@ -295,10 +322,12 @@ def login(request):
 
     # Si llegamos al final renderizamos el formulario
     return render(request, "login.html", {'form_auth': form_auth, 'categoria':categoria })
+@sync_to_async
 @login_required
 def logout(request):
      do_logout(request)
      return redirect('home')
+@sync_to_async
 @login_required
 def post_new(request):
     porfile=Porfile.objects.get(usuario=request.user)
@@ -322,23 +351,26 @@ def post_new(request):
         form = PostForm()
     return render(request, 'post_edit.html', {'form': form})
 
+@sync_to_async
 @login_required
 def delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
     context= {'post': post}
     return render(request, 'delete.html', context)
 @login_required
+@sync_to_async
 def delete_com(request, pk):
     coment = get_object_or_404(Comentario, pk=pk)
     post=coment.post_comentario.pk
     com = get_object_or_404(Comentario, pk=pk).delete()
     context= {'com': com}
     return redirect('post_details', pk=post)
+@sync_to_async
 @login_required
 def delete_post(request, pk):
     post = get_object_or_404(Post, pk=pk).delete()
     return redirect("porfile")
-
+@sync_to_async
 @login_required
 def post_edit(request, pk):
     porfile=Porfile.objects.get(usuario=request.user)
@@ -360,16 +392,16 @@ def post_edit(request, pk):
         form = PostForm(instance=post)
     return render(request, 'post_edit.html', {'form': form})
 
-
+@sync_to_async
 def privacy(request):
     return render(request, 'privacy.html')
-
+@sync_to_async
 def faq(request):
     year=datetime.date.today().year
     condiciones=Condicion.objects.all()
     return render(request, 'faq.html',{'year': year,'condiciones': condiciones})
 
-
+@sync_to_async
 @login_required
 def update_profile(request):
     if request.method == 'POST':
@@ -388,6 +420,7 @@ def update_profile(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
+@sync_to_async
 @login_required
 def view_porfile(request ,pk):
     user_seguido=get_object_or_404(Porfile, id_porfile=pk)
@@ -399,18 +432,20 @@ def view_porfile(request ,pk):
     posts=Post.objects.all().filter(autor=user).order_by('-id_post')[:100]
     post_count=posts.count()
     return render(request, 'view_porfile.html',{'user': user, 'posts': posts,'post_count': post_count, 'esta_siguiendo': esta_siguiendo})
-
+@sync_to_async
 @login_required
 def seguir(request, pk):
     other_user = get_object_or_404(User,pk=pk)
     s=Seguidores(sigue=request.user, seguido=other_user)
     s.save()
     return redirect('porfile')
+@sync_to_async
 @login_required
 def dejar_seguir(request, pk):
     other_user = get_object_or_404(User,pk=pk)
     get_object_or_404(Seguidores,seguido=other_user, sigue=request.user).delete()
     return redirect('porfile')
+@sync_to_async
 @login_required
 def siguiendo(request,pk):
     user=request.user
@@ -421,6 +456,128 @@ def seguidores(request,pk):
     user=request.user
     seguidores=Seguidores.objects.all().filter(seguido=user)
     return render (request, 'seguidores.html', {'users': seguidores})
+
+
+
+    return redirect('porfile')
+@sync_to_async
+@login_required
+def like_post(request, pk):
+    user=request.user
+    post = get_object_or_404(Post, pk=pk)
+    guardar=PostLike.objects.create(usuario=user, post=post)
+    guardar.save()
+    return redirect('liked_post')
+@sync_to_async
+@login_required
+def liked_post(request):
+    user=request.user
+    post_guardados=PostLike.objects.all().filter(usuario=user).order_by('-id_post_like')
+    return render(request, 'liked_post.html',{'post': liked_post})
+@sync_to_async
+@login_required
+def like_quit(request, pk):
+    user=request.user
+    borrar_post_guardado=get_object_or_404(PostLike, post=pk, usuario=user).delete()
+    return redirect("liked_post")
+
+#descargar video
+@sync_to_async
+def downloadvideo(request):
+     # checking wheather request.method is post or not
+    if request.method == 'POST':
+        videourl = request.POST['url']
+        validate = URLValidator()
+        try:
+            validate(videourl)
+            video= YouTube(videourl)
+            videoHD=video.streams.get_highest_resolution()
+            directory_path = os.getcwd()
+            module_dir = os.path.dirname(__file__)
+            filename ='video'
+            file_path = os.path.join(module_dir, filename)
+            try:
+                videoHD.download(f"{module_dir}", filename)
+            except:
+                messages.warning(request, 'El video seleccionado no permite desacargas por derechos de contenidos')
+                return redirect("home")
+            try:
+              with open(f'{module_dir}/{filename}.mp4', 'rb') as fl:
+                mime_type, _ = mimetypes.guess_type(file_path)
+                response = HttpResponse(fl, content_type=mime_type)
+                response['Content-Disposition'] = "attachment; filename=%s" % f'{filename}.mp4'
+                messages.success(request, 'Video descargado.')
+                return response
+            except FileNotFoundError:
+                messages.warning(request, 'No se ha podido guardar el video')
+                return redirect("home")
+        except ValidationError:
+            messages.warning(request, 'Porfavor ingrese una url válida')
+            return redirect("home")
+    return redirect("home")
+
+#descargar video
+@sync_to_async
+def downloadvideourl(request, pk):
+     # checking wheather request.method is post or not
+    if request.method == 'POST':
+        videourl = request.POST['url']
+
+        try:
+            video= YouTube(videourl)
+            videoHD=video.streams.get_highest_resolution()
+            directory_path = os.getcwd()
+            module_dir = os.path.dirname(__file__)
+            filename ='video'
+            file_path = f'{module_dir}/{filename}.mp4'
+            videoHD.download(f"{module_dir}", filename)
+            try:
+                with open( f'{module_dir}/{filename}', 'rb') as fl:
+                    mime_type, _ = mimetypes.guess_type(file_path)
+                    response = HttpResponse(fl, content_type=mime_type)
+                    response['Content-Disposition'] = "attachment; filename=%s" % f'{filename}.mp4'
+                    messages.success(request, 'Video descargado.')
+                    return response
+            except FileNotFoundError:
+                messages.warning(request, 'No se ha podido descargar el video')
+                return redirect("post_details", pk=pk)
+        except:
+            messages.warning(request, 'El video seleccionado no permite desacargas por derechos de contenidos')
+            return redirect("home")
+
+    return redirect("post_details", pk=pk)
+
+#descargar video
+@sync_to_async
+def downloadaudiourl(request, pk):
+     # checking wheather request.method is post or not
+    if request.method == 'POST':
+        videourl = request.POST['url']
+        try:
+            video= YouTube(videourl)
+            videoHD=video.streams.filter(type = "audio").first()
+            directory_path = os.getcwd()
+            module_dir = os.path.dirname(__file__)
+            filename ='audio'
+            file_path = f'{module_dir}/{filename}.mp4'
+            videoHD.download(f"{module_dir}", filename)
+            try:
+                with open( f'{module_dir}/{filename}', 'rb') as fl:
+                 mime_type, _ = mimetypes.guess_type(file_path)
+                 response = HttpResponse(fl, content_type=mime_type)
+                 response['Content-Disposition'] = "attachment; filename=%s" % f'{filename}.mp4'
+                 return response
+                    #return HttpResponse( f'{module_dir}/{filename}')
+            except FileNotFoundError:
+                messages.warning(request, 'No se ha encontrado el archivo')
+                return redirect("post_details", pk=pk)
+        except:
+            messages.warning(request, 'El video seleccionado no permite desacargas por derechos de contenidos')
+            return redirect("home")
+
+    return redirect("post_details", pk=pk)
+
+
 @login_required
 def api_download(request):
     apikey="e83329a486a64c37853186467a6d63b7"
@@ -442,21 +599,5 @@ def api_download(request):
 
 
     return redirect('porfile')
-@login_required
-def like_post(request, pk):
-    user=request.user
-    post = get_object_or_404(Post, pk=pk)
-    guardar=PostLike.objects.create(usuario=user, post=post)
-    guardar.save()
-    return redirect('liked_post');
-@login_required
-def liked_post(request):
-    user=request.user
-    post_guardados=PostLike.objects.all().filter(usuario=user).order_by('-id_post_like')
-    return render(request, 'liked_post.html',{'post': liked_post})
-@login_required
-def like_quit(request, pk):
-    user=request.user
-    borrar_post_guardado=get_object_or_404(PostLike, post=pk, usuario=user).delete()
-    return redirect("liked_post")
+
 

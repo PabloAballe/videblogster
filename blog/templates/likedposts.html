@@ -39,16 +39,16 @@ Videos que te gustan
 
         {{post_guardados.post.autor.usuario | title}}</p>
 
-    <img class="perfil" src="{{liked_post.post.autor.imagen_perfil.url}}" alt="{{liked_post.post.autor}}">
+    <img class="perfil" loading="lazy" src="{{liked_post.post.autor.imagen_perfil.url}}" alt="{{liked_post.post.autor}}">
 
       <a href="{% url 'post_details' pk=liked_post.post.id_post %}" style="color: #007BCE">Continuar leyendo</a>
     </div>
     <a href="{% url 'post_details' pk=liked_post.post.id_post %}" >
     {% if post.imagen_principal %}
-    <img class="card-img-right flex-auto  d-md-block" src="{{liked_post.post.imagen_principal.url}}" alt="{{liked_post.post.titulo}}"  style="max-width: 400px">
+    <img class="card-img-right flex-auto  d-md-block" loading="lazy"  src="{{liked_post.post.imagen_principal.url}}" alt="{{liked_post.post.titulo}}"  style="max-width: 400px">
     {% else %}
 
-    <img class="card-img-right flex-auto  d-md-block" src="{{liked_post.post.imagen_url}}" alt="{{liked_post.post.titulo}}"  style="max-width: 400px">
+    <img class="card-img-right flex-auto  d-md-block" loading="lazy" src="{{liked_post.post.imagen_url}}" alt="{{liked_post.post.titulo}}"  style="max-width: 400px">
     {% endif %}
   </a>
   </div>

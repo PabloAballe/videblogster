@@ -8,9 +8,9 @@
 <div class="porfile shadow p-3 mb-5 bg-white rounded">
 
 
-  <img class="cover" src="{{user.porfile.cover.url}}" alt="{{user.username}}">
+  <img class="cover"  loading="lazy"  src="{{user.porfile.cover.url}}" alt="{{user.username}}" style="border-radius: 1rem;width: 100%;height: 20rem;">
 
-  <img class="perfil_user" src="{{user.porfile.imagen_perfil.url}}" alt="{{user.username}}">
+  <img class="profile_img" loading="lazy"  src="{{user.porfile.imagen_perfil.url}}" alt="{{user.username}}" style="position: absolute;right: 50%;top: 60%;border-radius: 10rem;width: 5rem;    height: 5rem;">
 
   <div class="datos_usuario">
 
@@ -66,6 +66,17 @@
     </a>
 
   </div>
+
+  <div class="api" >
+    <a href="#">
+
+      <button type="button" style="float: none;" class="btn btn-light">
+       <img src="https://img.icons8.com/cute-clipart/64/000000/apple-mail.png"/>
+        </svg>Enviar Emails</button>
+
+    </a>
+
+  </div>
 </center>
   {% endif %}
 </center>
@@ -97,7 +108,7 @@
 
           {{post.autor.usuario |lower|capfirst}}</p>
 
-      <img class="perfil" src="{{post.autor.imagen_perfil.url}}" alt="{{post.autor}}">
+      <img loading="lazy"  class="perfil" src="{{post.autor.imagen_perfil.url}}" alt="{{post.autor}}">
 
         <a href="{% url 'post_details' pk=post.id_post %}" style="color: #007BCE">Continuar leyendo</a>
         <hr>
@@ -119,11 +130,11 @@
         </div>
 
       </div>
-       <a class="text-dark" href="{% url 'post_details' pk=post.id_post %}">
+       <a class="text-dark" href="{% url 'post_details' pk=post.id_post %}" style="padding: 1rem;">
       {% if post.imagen_principal %}
-    <img class="card-img-right flex-auto d-md-block" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}" style="max-width: 350px; border-radius:20px;margin-top:10px;margin-right:10px;">
+    <img  loading="lazy"  class="card-img-right flex-auto d-md-block" src="{{post.imagen_principal.url}}" alt="{{post.titulo}}" style="max-width: 100%; border-radius:20px;margin-top:10px;margin-right:10px;">
     {% else %}
-    <img class="card-img-right flex-auto  d-md-block" src="{{post.imagen_url}}" alt="{{post.titulo}}" style="max-width: 350px; border-radius:20px;margin-top:10px;margin-right:10px;">
+    <img  loading="lazy"  class="card-img-right flex-auto  d-md-block" src="{{post.imagen_url}}" alt="{{post.titulo}}" style="max-width: 100%; border-radius:20px;margin-top:10px;margin-right:10px;">
     {% endif %}
     </a>
     </div>
@@ -139,4 +150,15 @@
 
 
 </div>
+
+
+
+<style>
+@media (max-width: 1200px) {
+    .profile_img{
+        right: 30% !Important;
+        top: 60% !Important;
+    }
+}
+</style>
 {%endblock%}

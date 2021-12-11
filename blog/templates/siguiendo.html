@@ -7,7 +7,7 @@
   {%for user in users%}
   <a href="{%url 'view_porfile' pk=user.seguido.porfile.pk %}" >
     <div class="users ">
-      <img class="perfil_user" src="{{user.seguido.porfile.imagen_perfil.url}}" alt="{{user.seguido.username}}" style="">
+      <img class="perfil_user" loading="lazy"  src="{{user.seguido.porfile.imagen_perfil.url}}" alt="{{user.seguido.username}}" style="">
       <div class="datos_usuario ">
 
         <h2>{{user.seguido.first_name | title}} {{user.last_name| title}}</h2>

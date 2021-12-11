@@ -5,16 +5,23 @@
 {%block contenido%}
 {%include 'scroller.html'%}
 
+<script src="https://cdn.plyr.io/3.6.9/plyr.js"></script>
+<link rel="stylesheet" href="https://cdn.plyr.io/3.6.9/plyr.css" />
+
 
 <hr>
    <center>
     {% if post_details.video_url %}
-    <iframe src="https://www.youtube.com/embed/{{post_details.video_url}}" autoplay=1 allowfullscreen></iframe>
+    <!--<iframe src="https://www.youtube.com/embed/{{post_details.video_url}}" autoplay=1 allowfullscreen style="border-radius: 1rem;"></iframe>-->
+    <div id="player" data-plyr-provider="youtube" data-plyr-embed-id="{{post_details.video_url}}"></div>
     {% else %}
-    <video  controls >
-      <source src="{{post_details.video.url}}" type="video/mp4">
-      <b>{{post_details.titulo|lower|capfirst}}</b>
-      </video>
+    <!--<video  controls >-->
+    <!--  <source src="{{post_details.video.url}}" type="video/mp4">-->
+    <!--  <b>{{post_details.titulo|lower|capfirst}}</b>-->
+    <!--  </video>-->
+    <video id="player" playsinline controls data-poster="{{post_details.imagen_principal.url}}">
+      <source src="{{post_details.video.url}}" type="video/mp4" />
+    </video>
     {% endif %}
   </center>
     <hr>
@@ -80,35 +87,67 @@
       {{ comentarios.count }} comentarios</p>
     <p>Compartir</p>
     {%include 'social.html'%}
+<div style="display:flex; flex-grow: 1;max-width: 450px;min-width: 350px;">
+{%include 'downloadvideourl.html'%}
+{%include 'downloadaudiourl.html'%}
 
 {% if user.is_authenticated %}
-<center>
-    <div class="guardar">
+
+    <div class="guardar"  style="margin-top: 45px;">
+
 
       {%if guardado == True%}
-          <a href="{%url 'guardado_quit' pk=post_details.id_post%}" class="quit">
-        <button type="button" class="btn btn-dark" style="float: none; height : 10; margin-left:5px;">
-      Quitar Video de Guardado
+
+          <a href="{%url 'guardado_quit' pk=post_details.id_post%}" class="save" onclick="spinner()">
+        <button type="button" class="btn btn-dark"  style=" margin:auto;width:100%; " >
+             <div id="loader" STYLE="display:none;">
+          <div class="d-flex justify-content-center" id="loading-spinner">
+          <div class="spinner-grow" role="status" style="width: 3rem; height: 3rem;">
+          </div>
+        </div>
+        </div>         Quitar de Guardado
         </button>
         </a>
+        </div>
       {%else%}
-      <a href="{%url 'guardar_post' pk=post_details.id_post%}" class="save">
-        <button type="button" class="btn btn-success"  style="float: none; height : 10; margin-left:5px;">
-          Guardar Video
+      <a href="{%url 'guardar_post' pk=post_details.id_post%}" class="save" onclick="spinner()" >
+        <button type="button" class="btn btn-success"  style="margin:auto;width:100%;" >
+         <div id="loader" STYLE="display:none;">
+          <div class="d-flex justify-content-center" id="loading-spinner">
+          <div class="spinner-grow" role="status" style="width: 3rem; height: 3rem;">
+          </div>
+        </div>
+        </div>
+
+         Guardar Video
         </button>
       </a>
     </div>
-  </center>
+
  {%endif%}
 {%endif%}
+</div>
+
 
 
 <hr>
-
+<br><br>
 
   <h2>Videos recomendados </h2>
 
 </div>
+
+
+
+<script>
+  const player = new Plyr('#player',{
+  title: '{{post_details.titulo|lower|capfirst}}',
+  autoplay: true,
+  previewThumbnails: '{{post_details.imagen_url.url}}',
+  ads: true, publisherId: '', tagUrl: ''
+});
+</script>
+
 
 {%include 'post_scroll.html'%}
 {%include 'sidebar.html'%}
